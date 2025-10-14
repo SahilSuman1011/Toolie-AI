@@ -62,10 +62,5 @@ client/
 ## Deployment
 Deploy easily to Vercel, Netlify, or your preferred static hosting provider.
 
-## Credits
-- Inspired by [Quick.ai](https://quickai.com/) and other modern AI SaaS platforms.
-- Built by [Sahil Suman](https://github.com/SahilSuman1011)
-- [YouTube Tutorial](https://www.youtube.com/watch?v=RkYIWg5XAnI)
-
 ## License
 This project is licensed under the MIT License.

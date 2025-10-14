@@ -1,4 +1,5 @@
-import logo from "./logo.png"
+import logo from "./logo.png";
+import gradientBackground from "../../public/gradientBackground.png";
 import user_group from "./user_group.png";
 import star_icon from "./star_icon.svg";
 import star_dull_icon from "./star_dull_icon.svg";
@@ -11,6 +12,7 @@ import ai_gen_img_3 from "./ai_gen_img_3.png";
 
 export const assets = {
     logo,
+    gradientBackground,
     user_group,
     star_icon,
     star_dull_icon,
@@ -23,42 +25,42 @@ export const AiToolsData = [
         title: 'AI Article Writer',
         description: 'Generate high-quality, engaging articles on any topic with our AI writing technology.',
         Icon: SquarePen,
-        bg: { from: '#3588F2', to: '#0BB0D7' },
+        bg: { from: '#FF6B6B', to: '#FF8E53' }, // Warm red to orange
         path: '/ai/write-article'
     },
     {
         title: 'Blog Title Generator',
         description: 'Find the perfect, catchy title for your blog posts with our AI-powered generator.',
         Icon: Hash,
-        bg: { from: '#B153EA', to: '#E549A3' },
+        bg: { from: '#4158D0', to: '#C850C0' }, // Deep blue to purple
         path: '/ai/blog-titles'
     },
     {
         title: 'AI Image Generation',
         description: 'Create stunning visuals with our AI image generation tool, Experience the power of AI ',
         Icon: Image,
-        bg: { from: '#20C363', to: '#11B97E' },
+        bg: { from: '#43E97B', to: '#38F9D7' }, // Green to turquoise
         path: '/ai/generate-images'
     },
     {
         title: 'Background Removal',
         description: 'Effortlessly remove backgrounds from your images with our AI-driven tool.',
         Icon: Eraser,
-        bg: { from: '#F76C1C', to: '#F04A3C' },
+        bg: { from: '#FA8BFF', to: '#2BD2FF' }, // Pink to cyan
         path: '/ai/remove-background'
     },
     {
         title: 'Object Removal',
         description: 'Remove unwanted objects from your images seamlessly with our AI object removal tool.',
         Icon: Scissors,
-        bg: { from: '#5C6AF1', to: '#427DF5' },
+        bg: { from: '#8E2DE2', to: '#4A00E0' }, // Vibrant purple to electric blue
         path: '/ai/remove-object'
     },
     {
         title: 'Resume Reviewer',
         description: 'Get your resume reviewed by AI to improve your chances of landing your dream job.',
         Icon: FileText,
-        bg: { from: '#12B7AC', to: '#08B6CE' },
+        bg: { from: '#F7971E', to: '#FFD200' }, // Orange to yellow
         path: '/ai/review-resume'
     }
 ]
