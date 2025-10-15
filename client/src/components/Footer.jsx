@@ -2,7 +2,7 @@ import { assets } from '../assets/assets'
 
 export default function Footer() {
     return (
-        <footer className="px-6 md:px-16 lg:px-24 xl:px-32 w-full">
+        <footer className="px-6 md:px-16 lg:px-24 xl:px-32 w-full text-gray-500 mt-20">
             <div className="flex flex-col md:flex-row items-start justify-center gap-10 py-10 border-b border-gray-500/30">
                 
                 <div className="max-w-96">
