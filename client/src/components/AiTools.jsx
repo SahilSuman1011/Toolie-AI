@@ -13,7 +13,7 @@ const {user} = useUser()
     <div className='text-center'>
     <h2 className='text-slate-700 text-[42px] font-semibold'>Powerful AI Tools</h2>
     <p className='text-gray-500 max-w-lg mx-auto'>
-        Everything you need to create, enhance and optimize cutting-edge AI Technology.
+        Everything you need to create, enhance and optimize using cutting-edge AI Technology.
     </p>
     </div>
 
