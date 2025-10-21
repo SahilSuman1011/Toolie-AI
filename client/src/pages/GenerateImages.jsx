@@ -18,7 +18,7 @@ const GenerateImages = () => {
             {/* Left Col*/}
             <form onSubmit={onSubmitHandler} className='flex-1 max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
               <div className='flex items-center gap-3'>
-                <Sparkles className='w-6 text-[#4A7AFF]'/>
+                <Sparkles className='w-6 text-[#43E97B]'/>
                 <h1 className='text-xl font-semibold'>AI Image Generator</h1>
               </div>
               <p className='mt-6 text-sm font-medium'>Describe Your Image</p>
@@ -31,7 +31,7 @@ const GenerateImages = () => {
               <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
                 {imageStyle.map((item) => (
                   <span onClick={() => setSelectedStyle(item)} 
-                  className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedStyle === item ? 'bg-blue-50 text-blue-700 border-blue-300' : 'text-gray-500 border-gray-300'}`}
+                  className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedStyle === item ? 'bg-green-50 text-green-700 border-green-300' : 'text-gray-500 border-gray-300'}`}
                   key={item}>{item}</span>
                 ))}
               </div>
@@ -42,7 +42,7 @@ const GenerateImages = () => {
                   checked={publish} className='sr-only peer'/>
 
                   <div className='w-9 h-5 bg-slate-300 rounded-full
-                  peer-checked:bg-[#4A7AFF] transition'></div>
+                  peer-checked:bg-[#43E97B] transition'></div>
 
                   <span className='absolute left-1 top-1 w-3 h-3 bg-white
                   rounded-full transition peer-checked:translate-x-4'></span>
@@ -53,7 +53,7 @@ const GenerateImages = () => {
               </div>
   
                 <button className='w-full flex justify-center items-center gap-2
-                bg-gradient-to-r from-[#226BFF] to-[#65ADFF] text-white px-4 py-2 mt-6
+                bg-gradient-to-r from-[#43E97B] to-[#38F9D7] text-white px-4 py-2 mt-6
                 text-sm rounded-lg cursor-pointer'>
                   <Image className='w-5'/>
                   Generate Image
@@ -64,7 +64,7 @@ const GenerateImages = () => {
             <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
             border-gray-200 min-h-96'>
               <div className='flex items-center gap-3'>
-                <Image className='w-5 h-5 text-[#4A7AFF]'/>
+                <Image className='w-5 h-5 text-[#43E97B]'/>
                 <h1 className='text-xl font-semibold'>Generated Image</h1>
             </div>
     

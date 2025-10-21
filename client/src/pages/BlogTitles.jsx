@@ -17,7 +17,7 @@ const BlogTitles = () => {
             {/* Left Col*/}
             <form onSubmit={onSubmitHandler} className='flex-1 max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
               <div className='flex items-center gap-3'>
-                <Sparkles className='w-6 text-[#4A7AFF]'/>
+                <Sparkles className='w-6 text-[#4158D0]'/>
                 <h1 className='text-xl font-semibold'>AI Title Generator</h1>
               </div>
               <p className='mt-6 text-sm font-medium'>Keyword</p>
@@ -29,7 +29,7 @@ const BlogTitles = () => {
               <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
                 {blogCategories.map((item) => (
                   <span onClick={() => setSelectedCategory(item)} 
-                  className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedCategory === item ? 'bg-blue-50 text-blue-700 border-blue-300' : 'text-gray-500 border-gray-300'}`}
+                  className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedCategory === item ? 'bg-purple-50 text-purple-700 border-purple-300' : 'text-gray-500 border-gray-300'}`}
                   key={item}>{item}</span>
                 ))}
               </div>
@@ -37,7 +37,7 @@ const BlogTitles = () => {
               <div>
                 <br/>
                 <button className='w-full flex justify-center items-center gap-2
-                bg-gradient-to-r from-[#226BFF] to-[#65ADFF] text-white px-4 py-2 mt-6
+                bg-gradient-to-r from-[#4158D0] to-[#C850C0] text-white px-4 py-2 mt-6
                 text-sm rounded-lg cursor-pointer'>
                   <Edit className='w-5'/>
                   Generate Titles
@@ -50,7 +50,7 @@ const BlogTitles = () => {
             <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
             border-gray-200 min-h-96'>
               <div className='flex items-center gap-3'>
-                <Hash className='w-5 h-5 text-[#4A7AFF]'/>
+                <Hash className='w-5 h-5 text-[#4158D0]'/>
                 <h1 className='text-xl font-semibold'>Generated Titles</h1>
             </div>
     
