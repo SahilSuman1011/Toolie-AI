@@ -5,6 +5,7 @@ import LogoScroller from '../components/LogoScroller.jsx'
 import AiTools from '../components/AiTools.jsx'
 import Testimonial from '../components/Testimonial.jsx'
 import Plan from '../components/Plan.jsx'
+import FAQ from '../components/FAQ.jsx'
 import Footer from '../components/Footer.jsx'
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
     <AiTools/>
     <Testimonial/>
     <Plan/>
+    <FAQ/>
     <Footer/>
     </>
   )

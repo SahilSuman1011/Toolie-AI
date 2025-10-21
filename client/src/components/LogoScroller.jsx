@@ -1,42 +1,40 @@
 import React from 'react'
 
 const LogoScroller = () => {
-  const logos = [
-    { name: 'Slack', image: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg' },
-    { name: 'Netflix', image: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' },
-    { name: 'Google', image: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
-    { name: 'LinkedIn', image: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png' },
-    { name: 'Instagram', image: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png' },
-    { name: 'Facebook', image: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg' },
-    { name: 'Microsoft', image: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
-  ]
+    const companyLogos = ["slack", "framer", "netflix", "google", "linkedin", "instagram", "facebook"];
 
-  return (
-    <div className='w-full overflow-hidden'>
-      <div className='flex gap-12 animate-scroll'>
-        {/* First set */}
-        {logos.map((logo, index) => (
-          <div key={index} className='flex-shrink-0 w-26 h-8 flex items-center justify-center'>
-            <img 
-              src={logo.image} 
-              alt={logo.name}
-              className='max-w-full max-h-full object-contain'
-            />
-          </div>
-        ))}
-        {/* Duplicate set for seamless loop */}
-        {logos.map((logo, index) => (
-          <div key={`dup-${index}`} className='flex-shrink-0 w-26 h-8 flex items-center justify-center'>
-            <img 
-              src={logo.image} 
-              alt={logo.name}
-              className='max-w-full max-h-full object-contain'
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+    return (
+        <>
+            <style>{`
+                .marquee-inner {
+                    animation: marqueeScroll linear infinite;
+                }
+
+                @keyframes marqueeScroll {
+                    0% {
+                        transform: translateX(0%);
+                    }
+
+                    100% {
+                        transform: translateX(-50%);
+                    }
+                }
+            `}</style>
+
+            <div className="overflow-hidden w-full relative max-w-5xl mx-auto select-none -mt-28">
+                <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
+                <div className="marquee-inner flex will-change-transform min-w-[200%]" style={{ animationDuration: "15s" }}>
+                    <div className="flex">
+                        {[...companyLogos, ...companyLogos].map((company, index) => (
+                            <img key={index} src={`https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/${company}.svg`}
+                                alt={company} className="w-full h-full object-cover mx-6" draggable={false} />
+                        ))}
+                    </div>
+                </div>
+                <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent" />
+            </div>
+        </>
+    );
+};
 
 export default LogoScroller
