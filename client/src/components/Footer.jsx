@@ -1,41 +1,41 @@
-import { assets } from '../assets/assets'
+import React from 'react';
+import { assets } from '../assets/assets';
+import TAI from '../assets/TAI.png';
 
-export default function Footer() {
+export default function Example() {
     return (
-        <footer className="px-6 md:px-16 lg:px-24 xl:px-32 pt-12 pb-6 w-full text-gray-500 bg-white py-3">
-            <div className="flex flex-col md:flex-row justify-between w-full gap-10 md:gap-16 pb-[-8]">
-                <div className="md:max-w-sm flex flex-col items-center md:items-start">
-                    <img src={assets.logo} alt="Toolie AI Logo" className='w-44 h-24 sm:w-48' />
-                    <p className="text-sm text-gray-600 leading-relaxed text-center md:text-left">
-                        Toolie AI is a modern SaaS platform offering a suite of AI-powered tools to supercharge your productivity and enhance your workflow.
-                    </p>
-                </div>
-                
-                <div className="flex-1 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-end gap-10 md:gap-16 pb-[-10]">
-                    <div>
-                        <h3 className="font-semibold mb-4 text-gray-900 text-sm text-center md:text-left">Resources</h3>
-                        <ul className="text-sm space-y-2.5 text-gray-600 text-center md:text-left">
-                            <li><a href="#" className="hover:text-[#2F80ED] transition-colors">Tutorials</a></li>
-                            <li><a href="#" className="hover:text-[#2F80ED] transition-colors">Blog</a></li>
-                            <li><a href="#" className="hover:text-[#2F80ED] transition-colors">Contact</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h3 className="font-semibold mb-4 text-gray-900 text-sm text-center md:text-left">Connect</h3>
-                        <ul className="text-sm space-y-2.5 text-gray-600 text-center md:text-left">
-                            <li><a href="#" className="hover:text-[#2F80ED] transition-colors">Github</a></li>
-                            <li><a href="#" className="hover:text-[#2F80ED] transition-colors">Linkedin</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <>
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
             
-            <div className="pt-6 border-t border-gray-200">
-                <p className="text-center text-xs md:text-sm text-gray-500">
-                    Copyright © 2025 <a href="https://toolieai.com" className="hover:text-[#2F80ED] transition-colors font-medium">Toolie AI</a>. All rights reserved.
-                </p>
-            </div>
-        </footer>
+                * {
+                    font-family: 'Poppins', sans-serif;
+                }
+            `}</style>
+            
+            <footer className="flex flex-col items-center justify-around w-full py-4 text-sm bg-slate-50 text-gray-800/70">
+                <img src={TAI} alt="ToolieAI Logo" className="w-32" />
+                <p>Built by <a href="https://sahil-suman.vercel.app" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-800 hover:text-black transition-all">Sahil Suman</a>. The source code is available on <a href="https://github.com/SahilSuman1011/Toolie-AI" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-800 hover:text-black transition-all">GitHub</a>.</p>
+                <p className="mt-4 text-center">Copyright © 2025 <a href="#">ToolieAI</a>. All rights reservered.</p>
+                <div className="flex items-center gap-4 mt-6">
+                    <a href="https://github.com/SahilSuman1011/Toolie-AI" className="font-medium text-gray-800 hover:text-black transition-all">
+                        Github
+                    </a>
+                    <div className="h-4 w-px bg-black/20"></div>
+                    <a href="https://www.linkedin.com/in/sahilsuman11/" className="font-medium text-gray-800 hover:text-black transition-all">
+                        Linkedin
+                    </a>
+                    <div className="h-4 w-px bg-black/20"></div>
+                    <a href="https://github.com/SahilSuman1011/Toolie-AI/issues" className="font-medium text-gray-800 hover:text-black transition-all">
+                        Support
+                    </a>
+                     <div className="h-4 w-px bg-black/20"></div>
+                    <a href="mailto:sahilsuman1202@gmail.com" className="font-medium text-gray-800 hover:text-black transition-all">
+                        Contact
+                    </a>
+                </div>
+                     
+            </footer>
+        </>
     );
 };
