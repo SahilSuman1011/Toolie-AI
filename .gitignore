@@ -1,0 +1,91 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+.pnpm-debug.log
+
+# Build output
+dist/
+build/
+out/
+.cache/
+.next/
+.nuxt/
+.vercel/
+.public/
+.tmp/
+*.tsbuildinfo
+
+# Coverage
+coverage/
+coverage-final.json
+nyc_output/
+
+# Environment files
+.env
+.env.*.local
+.env.local
+.env.*.development
+.env.*.production
+.env.test
+
+# Logs
+logs/
+*.log
+*.log.*
+debug.log
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Misc caches and lock files created by package managers / tools
+.cache/
+.cache-loader/
+.yarn-integrity
+.pnp.cjs
+.pnp.js
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# Testing
+jest*.json
+coverage/
+
+# Docker
+docker-compose.override.yml
+docker-compose.*.yml
+.env.docker
+
+# Generated files
+*.local
+*.log
+*.pid
+*.seed
+*.tmp
+
+# Secrets and keys (do not commit)
+*.pem
+*.key
+*.crt
+.env.*.secret
+
+# Optional: ignore compiled python files if present
+__pycache__/
+*.py[cod]
+*$py.class
