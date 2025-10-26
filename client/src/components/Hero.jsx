@@ -31,7 +31,7 @@ const Hero = () => {
         <div className='flex flex-wrap justify-center gap-4 text-sm max-sm:text-xs py-4'>
         <button onClick={() => navigate('/ai')} className='bg-[#2F80ED] text-white px-8 py-3 rounded-lg
         hover:scale-102 active:scale-95 transition cursor-pointer border border-gray-300'>
-            Try Toolie Now
+            Try Toolie AI Now
         </button>
         <button className='bg-white px-8 py-3 rounded-lg border
         border-gray-300 hover:scale-102 active:scale-95 transition cursor-pointer'>
