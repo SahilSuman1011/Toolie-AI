@@ -1,7 +1,7 @@
 # 🤖 Toolie AI
 
 <div align="center">
-  <img src="client/src/assets/TAI.png" alt="Toolie AI Logo" width="200"/>
+  <img src="client/src/assets/logo1.svg" alt="Toolie AI Logo" width="200"/>
   <p>Your All-in-One AI-Powered Productivity Suite</p>
 </div>
 
@@ -65,9 +65,9 @@ Toolie AI is a modern SaaS platform that brings together a powerful suite of AI 
 
 ### Prerequisites
 - Node.js 16+ and npm/yarn
-- MongoDB (for backend)
+- PostgreSQL 14+
 - Clerk account for authentication
-- OpenAI API key for AI features
+- Google Gemini API key
 
 ### Installation
 
@@ -83,6 +83,11 @@ npm run dev
 # Backend setup (in a new terminal)
 cd ../server
 npm install
+
+# Set up PostgreSQL database
+# Create your database and run migrations
+npx prisma migrate dev
+
 npm run dev
 ```
 
@@ -96,8 +101,8 @@ VITE_API_URL=http://localhost:5000
 
 #### Backend (.env)
 ```env
-MONGODB_URI=your_mongodb_uri
-OPENAI_API_KEY=your_openai_key
+DATABASE_URL="postgresql://user:password@localhost:5432/toolie_db"
+GEMINI_API_KEY=your_gemini_api_key
 CLERK_SECRET_KEY=your_clerk_secret
 ```
 
@@ -115,10 +120,10 @@ CLERK_SECRET_KEY=your_clerk_secret
 ### Backend
 - **Runtime**: Node.js
 - **Framework**: Express.js
-- **Database**: MongoDB
-- **ODM**: Mongoose
-- **AI Integration**: OpenAI API
-- **File Storage**: Cloudinary
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **AI Integration**: Google Gemini API
+- **File Storage**: Local/Cloud Storage
 
 ## 📐 Architecture
 
@@ -149,9 +154,10 @@ Toolie-AI/
 - Set up webhook endpoints
 
 ### AI Services
-- Configure OpenAI API settings
+- Set up Google Cloud Console project
+- Configure Gemini API access and quotas
 - Set up rate limiting
-- Configure model parameters
+- Configure model parameters for different tools
 
 ## 📦 Deployment
 
@@ -168,7 +174,10 @@ vercel deploy
 ```
 
 ### Backend
-1. Set up MongoDB Atlas cluster
+1. Set up PostgreSQL database:
+   - Use Railway's PostgreSQL
+   - Amazon RDS
+   - or your preferred PostgreSQL hosting
 2. Deploy to your preferred hosting:
    - Railway
    - Heroku
