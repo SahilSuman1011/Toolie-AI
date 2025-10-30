@@ -1,66 +1,203 @@
-# Toolie AI
+# 🤖 Toolie AI
 
-Toolie AI is a modern SaaS platform offering a suite of AI-powered tools to supercharge your productivity. Inspired by leading AI SaaS products, Toolie AI provides features like article writing, blog title generation, image generation, and more—all in a beautiful, responsive web app.
+<div align="center">
+  <img src="client/src/assets/TAI.png" alt="Toolie AI Logo" width="200"/>
+  <p>Your All-in-One AI-Powered Productivity Suite</p>
+</div>
 
-## Features
-- ✍️ **AI Article Writer**: Generate high-quality, engaging articles on any topic.
-- 📝 **Blog Title Generator**: Find the perfect, catchy title for your blog posts.
-- 🖼️ **AI Image Generation**: Create stunning visuals with AI.
-- 🧹 **Background Removal**: Effortlessly remove backgrounds from your images.
-- 🧑‍💼 **Resume Review**: Get instant feedback on your resume.
-- 🎨 **Modern UI**: Clean, responsive design inspired by top SaaS landing pages.
+<div align="center">
+  <a href="#features">Features</a> •
+  <a href="#demo">Live Demo</a> •
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#deployment">Deployment</a>
+</div>
 
-## Tech Stack
-- **Frontend**: React, Vite, Tailwind CSS
-- **Icons**: Lucide React
-- **Authentication**: Clerk (for user management)
-- **Deployment**: Vercel/Netlify (recommended)
+<br/>
 
-## Getting Started
+## 🌟 Overview
+
+Toolie AI is a modern SaaS platform that brings together a powerful suite of AI tools to enhance your productivity and creative workflows. With its intuitive interface and powerful features, Toolie AI helps you create, edit, and optimize content with just a few clicks.
+
+## ✨ Features
+
+### Content Creation
+- ✍️ **AI Article Writer**
+  - Generate high-quality articles on any topic
+  - Customizable tone and style
+  - SEO-optimized content generation
+  - Support for multiple languages
+
+- 📝 **Blog Title Generator**
+  - Create engaging, SEO-friendly titles
+  - A/B testing suggestions
+  - Keyword optimization
+  - Click-through rate predictions
+
+### Visual Tools
+- 🎨 **AI Image Generation**
+  - Create custom images from text descriptions
+  - Multiple style options
+  - High-resolution output
+  - Batch generation capability
+
+- 🖼️ **Background Removal**
+  - One-click background removal
+  - Transparent PNG output
+  - Batch processing
+  - Edge detection refinement
+
+- ✂️ **Object Removal**
+  - Smart object selection
+  - Content-aware fill
+  - Multiple object removal
+  - High-quality restoration
+
+### Professional Tools
+- 📄 **Resume Reviewer**
+  - AI-powered resume analysis
+  - Industry-specific recommendations
+  - ATS optimization tips
+  - Formatting suggestions
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (v16+ recommended)
-- npm or yarn
+- Node.js 16+ and npm/yarn
+- MongoDB (for backend)
+- Clerk account for authentication
+- OpenAI API key for AI features
 
 ### Installation
+
 ```bash
 # Clone the repository
-https://github.com/SahilSuman1011/Toolie-AI.git
+git clone https://github.com/SahilSuman1011/Toolie-AI.git
+
+# Frontend setup
 cd Toolie-AI/client
-
-# Install dependencies
 npm install
-# or
-yarn install
-
-# Start the development server
 npm run dev
-# or
-yarn dev
+
+# Backend setup (in a new terminal)
+cd ../server
+npm install
+npm run dev
 ```
 
-The app will be available at `http://localhost:5173` by default.
+### Environment Variables
 
-### Folder Structure
-```
-client/
-  public/           # Static assets (backgrounds, icons)
-  src/
-    assets/         # Images, SVGs, and asset exports
-    components/     # React components (Navbar, Hero, etc.)
-    pages/          # Page components for each tool
-    index.css       # Tailwind and global styles
-    App.jsx         # Main app component
-    main.jsx        # Entry point
+#### Frontend (.env)
+```env
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_key
+VITE_API_URL=http://localhost:5000
 ```
 
-## Customization
-- Update the logo and branding in `src/assets/` and `Navbar.jsx`.
-- Add or modify AI tools in `src/pages/` and `src/assets/assets.js`.
-- Edit theme colors in `index.css` or Tailwind config.
+#### Backend (.env)
+```env
+MONGODB_URI=your_mongodb_uri
+OPENAI_API_KEY=your_openai_key
+CLERK_SECRET_KEY=your_clerk_secret
+```
 
-## Deployment
-Deploy easily to Vercel, Netlify, or your preferred static hosting provider.
+## 🛠 Tech Stack
 
-## License
-This project is licensed under the MIT License.
+### Frontend
+- **Framework**: React 18 with Vite
+- **Styling**: TailwindCSS
+- **State Management**: React Context
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Authentication**: Clerk
+- **HTTP Client**: Axios
+
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB
+- **ODM**: Mongoose
+- **AI Integration**: OpenAI API
+- **File Storage**: Cloudinary
+
+## 📐 Architecture
+
+```
+Toolie-AI/
+├── client/                # Frontend React application
+│   ├── public/           # Static assets
+│   └── src/
+│       ├── assets/       # Images and asset exports
+│       ├── components/   # Reusable React components
+│       │   ├── ui/      # UI components (cards, buttons)
+│       │   └── layout/  # Layout components
+│       ├── pages/       # Page components
+│       └── context/     # React context providers
+├── server/               # Backend Node.js application
+│   ├── configs/         # Configuration files
+│   ├── controllers/     # Route controllers
+│   ├── middlewares/     # Custom middlewares
+│   ├── models/          # Mongoose models
+│   └── routes/          # API routes
+```
+
+## 🔧 Configuration
+
+### Authentication
+- Set up Clerk authentication using the [Clerk Dashboard](https://clerk.dev)
+- Configure OAuth providers (Google, GitHub)
+- Set up webhook endpoints
+
+### AI Services
+- Configure OpenAI API settings
+- Set up rate limiting
+- Configure model parameters
+
+## 📦 Deployment
+
+### Frontend
+1. Build the frontend:
+```bash
+cd client
+npm run build
+```
+
+2. Deploy to Vercel:
+```bash
+vercel deploy
+```
+
+### Backend
+1. Set up MongoDB Atlas cluster
+2. Deploy to your preferred hosting:
+   - Railway
+   - Heroku
+   - DigitalOcean
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 💌 Support
+
+For support, email support@toolie-ai.com or join our [Discord community](https://discord.gg/toolie-ai).
+
+## 🙏 Acknowledgments
+
+- OpenAI for AI capabilities
+- Clerk for authentication
+- All our open-source contributors
+
+---
+
+<div align="center">
+  Made with ❤️ by <a href="https://github.com/SahilSuman1011">Sahil Suman</a>
+</div>
