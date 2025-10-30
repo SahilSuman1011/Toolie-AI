@@ -1,7 +1,7 @@
 # 🤖 Toolie AI
 
 <div align="center">
-  <img src="client/src/assets/logo1.svg" alt="Toolie AI Logo" width="200"/>
+  <img src="client/src/assets/logo.png" alt="Toolie AI Logo" width="200"/>
   <p>Your All-in-One AI-Powered Productivity Suite</p>
 </div>
 
