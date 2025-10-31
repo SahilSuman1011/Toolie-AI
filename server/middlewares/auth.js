@@ -13,7 +13,7 @@ export const auth = async (req, res, next) => {
             await clerkClient.users.updateUserMetadata(userId, {
                 privateMetadata: {
                     free_usage : 0
-                }
+                } 
             })
             req.free_usage = 0;
         }
