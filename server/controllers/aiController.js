@@ -3,14 +3,14 @@ import sql from "../configs/db.js";
 import { clerkClient } from "@clerk/express";
 
 const AI = new OpenAI({
-    apiKey: "process.env.GEMINI_API_KEY",
+    apiKey: process.env.GEMINI_API_KEY,
     baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
 });
 
 export const generateArticle = async (req, res) => {
     try{
     // plan and free_usage from auth middleware
-        const {userId} = req.auth;
+        const {userId} = req.auth();
         const {prompt, length} = req.body;
         const free_usage = req.free_usage;
         const plan = req.plan;
@@ -52,7 +52,7 @@ export const generateArticle = async (req, res) => {
 
 } 
 
-response.json({success: true, content})
+res.json({success: true, content})
 
 } catch(error) {
     console.log(error.message)
