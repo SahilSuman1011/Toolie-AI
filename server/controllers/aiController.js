@@ -26,7 +26,7 @@ export const generateArticle = async (req, res) => {
         if(plan !== 'premium' && free_usage >= 10){
             return res.json({success: false, message: "Limit reached. Upgrade to continue."})
         }
-        // AI Logic here
+        // AI Logic here 
         const response = await AI.chat.completions.create({
         model: "gemini-2.0-flash",
         messages: [
@@ -59,3 +59,4 @@ res.json({success: true, content})
     res.json({success: false, message: error.message})
     }
 }
+
