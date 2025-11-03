@@ -60,3 +60,79 @@ res.json({success: true, content})
     }
 }
 
+export const generateBlogTitle = async (req, res) => {
+    try{
+    // plan and free_usage from auth middleware
+        const {userId} = req.auth();
+        const {prompt} = req.body;
+        const free_usage = req.free_usage;
+        const plan = req.plan;
+
+        if(plan !== 'premium' && free_usage >= 10){
+            return res.json({success: false, message: "Limit reached. Upgrade to continue."})
+        }
+        // AI Logic here 
+        const response = await AI.chat.completions.create({
+        model: "gemini-2.0-flash",
+        messages: [{role: "user", content: prompt,},],
+            temperature: 0.7,
+            max_tokens: 100,
+    });
+        const content = response.choices[0].message.content
+
+        await sql` INSERT INTO creations (user_id, prompt, content, type)
+        VALUES (${userId}, ${prompt}, ${content}, 'blog-title') `;
+
+        if(plan !== 'premium'){
+            await clerkClient.users.updateUserMetadata(userId, {
+                privateMetadata: {
+                    free_usage: free_usage + 1
+                }
+            })
+} 
+
+res.json({success: true, content})
+
+} catch(error) {
+    console.log(error.message)
+    res.json({success: false, message: error.message})
+    }
+}
+
+export const generateImage = async (req, res) => {
+    try{
+    // plan and free_usage from auth middleware
+        const {userId} = req.auth();
+        const {prompt, publish} = req.body;
+        const plan = req.plan;
+
+        if(plan !== 'premium'){
+            return res.json({success: false, message: " This feature is only available for premium subscriptions."})
+        }
+        // AI Logic here 
+        const response = await AI.chat.completions.create({
+        model: "gemini-2.0-flash",
+        messages: [{role: "user", content: prompt,},],
+            temperature: 0.7,
+            max_tokens: 100,
+    });
+        const content = response.choices[0].message.content
+
+        await sql` INSERT INTO creations (user_id, prompt, content, type)
+        VALUES (${userId}, ${prompt}, ${content}, 'blog-title') `;
+
+        if(plan !== 'premium'){
+            await clerkClient.users.updateUserMetadata(userId, {
+                privateMetadata: {
+                    free_usage: free_usage + 1
+                }
+            })
+} 
+
+res.json({success: true, content})
+
+} catch(error) {
+    console.log(error.message)
+    res.json({success: false, message: error.message})
+    }
+}
