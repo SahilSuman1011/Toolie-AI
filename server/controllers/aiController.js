@@ -1,9 +1,9 @@
 import OpenAI from "openai";
 import sql from "../configs/db.js";
 import { clerkClient } from "@clerk/express";
-import { response } from "express";
 import {v2 as cloudinary} from 'cloudinary';
 import axios from "axios";
+import FormData from "form-data";
 
 const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
@@ -110,24 +110,32 @@ export const generateImage = async (req, res) => {
         const plan = req.plan;
 
         if(plan !== 'premium'){
-            return res.json({success: false, message: " This feature is only available for premium subscriptions."})
+            return res.json({success: false, message: "This feature is only available for premium subscriptions."})
         }
         // AI Logic here 
-        const formData = new FormData()
-        formData.append('prompt', prompt)
-        const {data} = await axios.post("https://clipdrop-api.co/text-to-image/v1", formData, {
-            Headers: {'x-api-key': process.env.CLIPDROP_API_KEY,},
-            responseType: 'arraybuffer',
-        })
+        const formData = new FormData();
+        formData.append('prompt', prompt);
 
+        const headers = {
+            ...formData.getHeaders(),
+            'x-api-key': process.env.CLIPDROP_API_KEY,
+        };
+
+        const response = await axios.post("https://clipdrop-api.co/text-to-image/v1", formData, {
+            headers,
+            responseType: 'arraybuffer',
+        });
+
+        const data = response.data;
         const base64Image = `data:image/png;base64,${Buffer.from(data, 'binary').toString('base64')}`;
 
-        const {secure_url} = await cloudinary.uploader.upload(base64Image)
+        const uploadResult = await cloudinary.uploader.upload(base64Image);
+        const secure_url = uploadResult.secure_url;
 
         await sql` INSERT INTO creations (user_id, prompt, content, type, publish)
-        VALUES (${userId}, ${prompt}, ${content}, 'image', ${publish ?? false}) `;
+        VALUES (${userId}, ${prompt}, ${secure_url}, 'image', ${publish ?? false}) `;
 
-res.json({success: true, content: secure_url})
+        res.json({success: true, content: secure_url})
 
 } catch(error) {
     console.log(error.message)
