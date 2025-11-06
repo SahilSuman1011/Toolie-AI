@@ -35,5 +35,5 @@ export const toggleLikeCreations = async (req, res) => {
 
     } catch(error){
         res.json({success: false, message: error.message});
-    }
+    } 
 }
