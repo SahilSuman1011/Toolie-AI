@@ -28,11 +28,34 @@ export const getPublishedCreations = async (req, res) => {
 
 export const toggleLikeCreations = async (req, res) => {
     try{
-        const creations = await sql`
-        SELECT * FROM creations WHERE publish = true ORDER BY created_At DESC`;
 
-        res.json({success:true, creations});
+        const {userId} = req.auth;
+        const {id} = req.body;
 
+        const [creation] = await sql`SELECT * FROM creations WHERE id = ${id}`
+
+        if(!creation){
+            return res.json({success: false, message: "Creation not found"})
+        }
+
+        const currentLikes = creation.likes;
+        const userIdStr = userId.toString();
+        let updatedLikes;
+        let message;
+
+        if(currentLikes.includes(userIdStr)){
+            updatedLikes = currentLikes.filter(() => user !== userIdStr);
+            message = "Creation Unliked"
+        } else {
+            updatedLikes = [...currentLikes, userIdStr]
+            message = "Creation Liked"
+        }
+
+        const formattedArray = `${updatedLikes.json(',')}`
+        
+        await sql`UPDATE creations SET likes = ${formattedArray}::text[] WHERE id = ${id}`;
+
+        res.json({success:true, message});
     } catch(error){
         res.json({success: false, message: error.message});
     } 
