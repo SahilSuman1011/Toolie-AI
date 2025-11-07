@@ -1,73 +1,98 @@
 # 🤖 Toolie AI
 
 <div align="center">
-  <img src="client/src/assets/logo-og.png" alt="Toolie AI Logo" width="200"/>
-  <p>Your All-in-One AI-Powered Productivity Suite</p>
-</div>
 
-<div align="center">
-  <a href="#features">Features</a> •
-  <a href="#demo">Live Demo</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#tech-stack">Tech Stack</a> •
-  <a href="#architecture">Architecture</a> •
-  <a href="#deployment">Deployment</a>
-</div>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Contributors](https://img.shields.io/github/contributors/SahilSuman1011/Toolie-AI)](https://github.com/SahilSuman1011/Toolie-AI/graphs/contributors)
 
-<br/>
+<img src="client/src/assets/toolie-logo.png" alt="Toolie AI Logo" width="200"/>
+
+**Your Enterprise-Grade AI-Powered Productivity Suite**
+
+[Website](https://toolie-ai.com) • [Documentation](https://docs.toolie-ai.com)
+
+---
+
+</div>
 
 ## 🌟 Overview
 
-Toolie AI is a modern SaaS platform that brings together a powerful suite of AI tools to enhance your productivity and creative workflows. With its intuitive interface and powerful features, Toolie AI helps you create, edit, and optimize content with just a few clicks.
+Toolie AI is an enterprise-grade SaaS platform that harnesses cutting-edge AI technologies to revolutionize productivity and creative workflows. Built with scalability and performance in mind, it offers a comprehensive suite of AI-powered tools for content creation, image manipulation, and document analysis.
+
+### Key Benefits
+
+- 🚀 **Enterprise Performance**: Built for scale with modern tech stack
+- 🔒 **Enterprise-Grade Security**: SOC2 compliant with robust authentication
+- 🎯 **AI-Powered Automation**: Streamline repetitive tasks
+- 💼 **Business Ready**: Team management and collaboration features
+- 📊 **Advanced Analytics**: Usage tracking and performance metrics
 
 ## ✨ Features
 
-### Content Creation
+### Implemented Features
+- 🎨 **Modern UI/UX**
+  - Stunning glassmorphic design
+  - Smooth Framer Motion animations
+  - Responsive layout for all devices
+  - Interactive floating icons
+  - Dynamic logo scroller
+
+- 🔒 **Authentication & Authorization**
+  - Secure authentication with Clerk
+  - Protected routes
+  - User session management
+  - Premium tier access control
+
+- � **Dashboard**
+  - Clean and intuitive interface
+  - Sidebar navigation
+  - Tool categorization
+  - User profile integration
+
+### In Progress
 - ✍️ **AI Article Writer**
-  - Generate high-quality articles on any topic
-  - Customizable tone and style
-  - SEO-optimized content generation
-  - Support for multiple languages
+  - Content generation using Google Gemini
+  - Customizable article length
+  - Topic-based generation
 
-- 📝 **Blog Title Generator**
-  - Create engaging, SEO-friendly titles
-  - A/B testing suggestions
-  - Keyword optimization
-  - Click-through rate predictions
-
-### Visual Tools
 - 🎨 **AI Image Generation**
-  - Create custom images from text descriptions
+  - Text-to-image generation
   - Multiple style options
   - High-resolution output
-  - Batch generation capability
+  - Public/private sharing options
 
+- 📝 **Blog Title Generator**
+  - AI-powered title suggestions
+  - SEO optimization
+  - Engagement metrics
+  - Variation generation
+
+### Planned Features
 - 🖼️ **Background Removal**
   - One-click background removal
   - Transparent PNG output
   - Batch processing
-  - Edge detection refinement
 
 - ✂️ **Object Removal**
   - Smart object selection
   - Content-aware fill
   - Multiple object removal
-  - High-quality restoration
 
-### Professional Tools
 - 📄 **Resume Reviewer**
   - AI-powered resume analysis
-  - Industry-specific recommendations
   - ATS optimization tips
   - Formatting suggestions
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 16+ and npm/yarn
-- PostgreSQL 14+
+- Node.js 16+ and npm
 - Clerk account for authentication
 - Google Gemini API key
+- Clipdrop API key (for image generation)
+- Cloudinary account (for image storage)
+- PostgreSQL database
 
 ### Installation
 
@@ -83,11 +108,6 @@ npm run dev
 # Backend setup (in a new terminal)
 cd ../server
 npm install
-
-# Set up PostgreSQL database
-# Create your database and run migrations
-npx prisma migrate dev
-
 npm run dev
 ```
 
@@ -96,14 +116,19 @@ npm run dev
 #### Frontend (.env)
 ```env
 VITE_CLERK_PUBLISHABLE_KEY=your_clerk_key
-VITE_API_URL=http://localhost:5000
+VITE_BASE_URL=http://localhost:3000
 ```
 
 #### Backend (.env)
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/toolie_db"
+PORT=3000
 GEMINI_API_KEY=your_gemini_api_key
 CLERK_SECRET_KEY=your_clerk_secret
+CLIPDROP_API_KEY=your_clipdrop_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+DATABASE_URL=your_postgresql_connection_string
 ```
 
 ## 🛠 Tech Stack
@@ -111,99 +136,112 @@ CLERK_SECRET_KEY=your_clerk_secret
 ### Frontend
 - **Framework**: React 18 with Vite
 - **Styling**: TailwindCSS
-- **State Management**: React Context
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
-- **Authentication**: Clerk
+- **Authentication**: Clerk React
 - **HTTP Client**: Axios
+- **Toast Notifications**: React Hot Toast
+- **Loading States**: React Loading Skeleton
 
 ### Backend
 - **Runtime**: Node.js
 - **Framework**: Express.js
 - **Database**: PostgreSQL
-- **ORM**: Prisma
-- **AI Integration**: Google Gemini API
-- **File Storage**: Local/Cloud Storage
+- **Authentication**: Clerk Express
+- **AI Services**:
+  - Google Gemini API (Text Generation)
+  - Clipdrop API (Image Generation)
+- **Image Storage**: Cloudinary
+- **Middleware**: CORS, Express JSON
 
-## 📐 Architecture
+## 📐 Project Structure
 
 ```
 Toolie-AI/
-├── client/                # Frontend React application
-│   ├── public/           # Static assets
+├── client/                      # Frontend React application
+│   ├── public/                 # Static assets
+│   │   ├── ai-icons/          # Tool icons
+│   │   ├── company-logos/     # Partner logos
+│   │   └── gradientBackground.png
 │   └── src/
-│       ├── assets/       # Images and asset exports
-│       ├── components/   # Reusable React components
-│       │   ├── ui/      # UI components (cards, buttons)
-│       │   └── layout/  # Layout components
-│       ├── pages/       # Page components
-│       └── context/     # React context providers
-├── server/               # Backend Node.js application
-│   ├── configs/         # Configuration files
-│   ├── controllers/     # Route controllers
-│   ├── middlewares/     # Custom middlewares
-│   ├── models/          # Mongoose models
-│   └── routes/          # API routes
+│       ├── assets/            # Asset exports
+│       ├── components/        # React components
+│       │   ├── ui/           # UI components
+│       │   └── {Component}.jsx
+│       └── pages/            # Page components
+│
+├── server/                      # Backend Node.js application
+│   ├── configs/               # Configuration setup
+│   │   ├── cloudinary.js     # Cloudinary config
+│   │   └── db.js             # Database config
+│   ├── controllers/          # Route controllers
+│   │   ├── aiController.js   # AI features logic
+│   │   └── userController.js # User management
+│   ├── middlewares/         # Custom middlewares
+│   │   └── auth.js          # Authentication
+│   └── routes/              # API routes
 ```
 
-## 🔧 Configuration
+## 🔧 Current Implementation Status
 
-### Authentication
-- Set up Clerk authentication using the [Clerk Dashboard](https://clerk.dev)
-- Configure OAuth providers (Google, GitHub)
-- Set up webhook endpoints
+### Completed
+- ✅ Modern UI implementation with Framer Motion animations
+- ✅ Authentication setup with Clerk
+- ✅ Responsive design and mobile optimization
+- ✅ Basic routing and protected routes
+- ✅ Landing page with interactive elements
+- ✅ Dashboard layout and navigation
+- ✅ Tool selection interface
 
-### AI Services
-- Set up Google Cloud Console project
-- Configure Gemini API access and quotas
-- Set up rate limiting
-- Configure model parameters for different tools
+### In Progress
+- 🔄 Backend API development
+- 🔄 AI service integrations
+- 🔄 Database schema implementation
+- 🔄 Premium tier functionality
+- 🔄 Image generation service
+- 🔄 Article generation service
 
-## 📦 Deployment
+### Pending
+- ⏳ Background removal tool
+- ⏳ Object removal functionality
+- ⏳ Resume review system
+- ⏳ User content management
+- ⏳ Community features
+- ⏳ Analytics integration
 
-### Frontend
-1. Build the frontend:
-```bash
-cd client
-npm run build
-```
+## �️ Roadmap
 
-2. Deploy to Vercel:
-```bash
-vercel deploy
-```
+### Phase 1 (Current)
+- Complete core AI tool implementations
+- Finalize backend API structure
+- Implement premium tier system
+- Add error handling and loading states
 
-### Backend
-1. Set up PostgreSQL database:
-   - Use Railway's PostgreSQL
-   - Amazon RDS
-   - or your preferred PostgreSQL hosting
-2. Deploy to your preferred hosting:
-   - Railway
-   - Heroku
-   - DigitalOcean
+### Phase 2 (Upcoming)
+- Add user dashboard analytics
+- Implement content saving system
+- Add batch processing capabilities
+- Enhance AI model configurations
+
+### Phase 3 (Future)
+- Add community features
+- Implement sharing capabilities
+- Add collaboration tools
+- Enhance performance optimizations
 
 ## 🤝 Contributing
 
+This project is currently in active development. If you'd like to contribute:
+
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a pull request
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 💌 Support
-
-For support, email support@toolie-ai.com or join our [Discord community](https://discord.gg/toolie-ai).
-
-## 🙏 Acknowledgments
-
-- OpenAI for AI capabilities
-- Clerk for authentication
-- All our open-source contributors
 
 ---
 
