@@ -6,7 +6,7 @@ import Markdown from 'react-markdown';
 import { useAuth } from '@clerk/clerk-react';
 
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const BlogTitles = () => {
 
