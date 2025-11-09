@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 
-axios.defaults.baseURL = 'http://localhost:3000';
+// Remove the baseURL as we're using Vite's proxy
 
 const RemoveBackground = () => {
 
@@ -23,7 +23,12 @@ const RemoveBackground = () => {
     
     const token = await getToken();
     const {data} = await axios.post('/api/ai/remove-image-background', formData,
-    {headers: {Authorization: `Bearer ${token}`}})
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    })
 
     if(data.success) {
     setContent(data.content)
@@ -84,6 +89,8 @@ const RemoveBackground = () => {
                 <img src={content} alt='image' className='mt-3 w-full h-full'/>
               )
             }
+    
+
     
         </div>
         </div>

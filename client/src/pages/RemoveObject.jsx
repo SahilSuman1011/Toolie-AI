@@ -65,7 +65,7 @@ const RemoveObject = () => {
                 text-sm rounded-lg cursor-pointer'>
                   {
                     loading ? <span className='w-4 h-4 my-1 rounded-full border-2
-                    border-t-transparent animate-pulse'></span>
+                    border-t-transparent animate-spin'></span>
                     : <Scissors className='w-5'/>
                   }
                   Remove Object
