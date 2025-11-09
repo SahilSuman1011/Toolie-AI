@@ -59,11 +59,11 @@ export const AiToolsData = [
         path: '/ai/remove-object'
     },
     {
-        title: 'Resume Reviewer',
-        description: 'Get your resume reviewed by AI to improve your chances of landing your dream job.',
+        title: 'LinkedIn Optimizer',
+        description: 'Enhance your LinkedIn profile with AI-powered optimization for better visibility and impact.',
         Icon: FileText,
         bg: { from: '#F7971E', to: '#FFD200' }, // Orange to yellow
-        path: '/ai/review-resume'
+        path: '/ai/linkedin-optimizer'
     }
 ]
 

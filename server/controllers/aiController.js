@@ -5,11 +5,6 @@ import {v2 as cloudinary} from 'cloudinary';
 import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-const pdf = require('pdf-parse');
-
 const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
     baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
@@ -212,44 +207,72 @@ export const removeImageObject = async (req, res) => {
     }
 }
 
-export const resumeReview = async (req, res) => {
-    try{
-    // plan and free_usage from auth middleware
+export const linkedinOptimize = async (req, res) => {
+    try {
         const {userId} = req.auth();
-        const resumeReview = req.file;
+        const {headline, about, experience, skills} = req.body;
         const plan = req.plan;
 
         if(plan !== 'premium'){
             return res.json({success: false, message: "This feature is only available for premium subscriptions."})
         }
-        // AI Logic here
 
-        if(resumeReview.size > 5 * 1024 * 1024){
-            return res.json({success: false, message: "File size exceeds allowed size (5MB)."})
-        }    
+        if (!headline || !about || !experience) {
+            return res.status(400).json({success: false, message: "Headline, about, and experience sections are required"});
+        }
 
-        const dataBuffer = fs.readFileSync(resumeReview.path)
-        const pdfData = await pdf(dataBuffer);
+        const prompt = `Optimize the following LinkedIn profile sections for better visibility and impact:
 
-        const prompt = `Review the following resumme and provide constructivve feedback
-        on its strengths, weaknesses and areas for improvement. Resume Content:\n\n${pdfData.text}`
+Headline: ${headline}
+
+About Section: ${about}
+
+Experience: ${experience}
+
+${skills ? `Skills: ${skills}
+
+` : ''}Please enhance each section while maintaining authenticity and professionalism. Focus on:
+1. SEO optimization with relevant keywords
+2. Clear value proposition
+3. Achievement-focused language
+4. Industry-specific terminology
+5. Engagement and readability
+6. Quantifiable achievements and metrics
+7. Leadership and expertise highlights
+
+Return the optimized content in markdown format with the following sections:
+
+## Optimized Headline
+[Enhanced headline with strong keywords and value proposition]
+
+## About Section
+[Enhanced about section]
+
+## Experience Highlights
+[Enhanced experience section]
+
+${skills ? `## Key Skills & Expertise
+[Enhanced skills section]
+
+` : ''}Make each section impactful, professional, and optimized for LinkedIn's algorithm while maintaining authenticity.`;
 
         const response = await AI.chat.completions.create({
-        model: "gemini-2.0-flash",
-        messages: [{role: "user", content: prompt,},],
-        temperature: 0.7,
-        max_tokens: 1000,
-    });
-        const content = response.choices[0].message.content
+            model: "gemini-2.0-flash",
+            messages: [{role: "user", content: prompt}],
+            temperature: 0.7,
+            max_tokens: 1500,
+        });
+
+        const content = response.choices[0].message.content;
 
         await sql` INSERT INTO creations (user_id, prompt, content, type)
-        VALUES (${userId}, ${`Review the uploaded resume`}, ${content}, 'resume-review') `;
+            VALUES (${userId}, ${JSON.stringify({headline, about, experience, skills})}, ${content}, 'linkedin-optimize') `;
 
         res.json({success: true, content})
 
-} catch(error) {
-    console.log(error.message)
-    res.json({success: false, message: error.message})
+    } catch(error) {
+        console.log(error.message)
+        res.json({success: false, message: error.message})
     }
 }
 

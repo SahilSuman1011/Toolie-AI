@@ -1,5 +1,5 @@
 import express from 'express';
-import { generateArticle, generateBlogTitle, generateImage, removeImageBackground, removeImageObject, resumeReview } from '../controllers/aiController.js';
+import { generateArticle, generateBlogTitle, generateImage, removeImageBackground, removeImageObject, linkedinOptimize } from '../controllers/aiController.js';
 import {auth} from '../middlewares/auth.js';
 import { upload } from '../configs/multer.js';
 
@@ -15,7 +15,7 @@ aiRouter.post('/remove-image-background', upload.single('image'), auth, removeIm
 
 aiRouter.post('/remove-image-object', upload.single('image'), auth, removeImageObject)
 
-aiRouter.post('/resume-review', upload.single('resume'), auth, resumeReview)
+aiRouter.post('/linkedin-optimize', auth, linkedinOptimize)
 
 export default aiRouter
 
