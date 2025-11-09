@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Layout from './pages/Layout.jsx'
@@ -10,7 +10,6 @@ import RemoveBackground from './pages/RemoveBackground.jsx'
 import RemoveObject from './pages/RemoveObject.jsx'
 import LinkedInOptimizer from './pages/LinkedInOptimizer.jsx'
 import Community from './pages/Community.jsx'
-import { useAuth } from '@clerk/clerk-react'
 import {Toaster} from 'react-hot-toast'
 
 const App = () => {

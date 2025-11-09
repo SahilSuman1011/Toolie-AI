@@ -29,7 +29,7 @@ export const getPublishedCreations = async (req, res) => {
 export const toggleLikeCreations = async (req, res) => {
     try{
 
-        const {userId} = req.auth;
+        const {userId} = req.auth();
         const {id} = req.body;
 
         const [creation] = await sql`SELECT * FROM creations WHERE id = ${id}`
@@ -51,7 +51,7 @@ export const toggleLikeCreations = async (req, res) => {
             message = "Creation Liked"
         }
 
-        const formattedArray = `${updatedLikes.json(',')}`
+        const formattedArray = `${updatedLikes.join(',')}`
         
         await sql`UPDATE creations SET likes = ${formattedArray}::text[] WHERE id = ${id}`;
 
