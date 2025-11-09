@@ -33,7 +33,7 @@ const LinkedInOptimizer = () => {
       setCopiedSection(section)
       toast.success(`${section} copied to clipboard!`)
       setTimeout(() => setCopiedSection(''), 2000)
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to copy text')
     }
   }
@@ -41,31 +41,62 @@ const LinkedInOptimizer = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     
-    if (!formData.headline || !formData.about || !formData.experience) {
-      toast.error('Please fill in all required fields')
-      return
+    // Validate required fields
+    const requiredFields = {
+      headline: 'Headline',
+      about: 'About section',
+      experience: 'Current role description'
+    };
+
+    const missingFields = Object.entries(requiredFields)
+      .filter(([key]) => !formData[key].trim())
+      .map(([, label]) => label);
+
+    if (missingFields.length > 0) {
+      toast.error(`Please fill in: ${missingFields.join(', ')}`)
+      return;
     }
     
     try {
-      setLoading(true)
+      setLoading(true);
+      setContent(''); // Clear previous content while loading
+
+      // Get fresh token
+      const token = await getToken();
+      if (!token) {
+        toast.error('Authentication failed. Please try again.');
+        return;
+      }
+
       const {data} = await axios.post('/api/ai/linkedin-optimize', 
         formData,
         {
           headers: {
-            'Authorization': `Bearer ${await getToken()}`,
+            'Authorization': `Bearer ${token}`,
           }
         }
-      )
+      );
 
       if(data.success) {
-        setContent(data.content)
+        setContent(data.content);
+        toast.success('Profile optimized successfully!');
       } else {
-        toast.error(data.message)
+        toast.error(data.message || 'Failed to optimize profile. Please try again.');
       }
     } catch (error) {
-      toast.error(error.message)
+      console.error('Optimization error:', error);
+      if (error.response?.status === 401) {
+        toast.error('Please sign in to use this feature');
+      } else if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else if (!navigator.onLine) {
+        toast.error('No internet connection. Please check your network.');
+      } else {
+        toast.error('Failed to optimize profile. Please try again later.');
+      }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false)
   }
 
   return (
@@ -170,9 +201,24 @@ const LinkedInOptimizer = () => {
       {/* Right Col */}
       <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
         border-gray-200 min-h-96 mx-h-[600px]'>
-        <div className='flex items-center gap-3'>
-          <FileText className='w-5 h-5 text-[#F7971E]'/>
-          <h1 className='text-xl font-semibold'>Enhanced Content</h1>
+        <div className='flex items-center justify-between'>
+          <div className='flex items-center gap-3'>
+            <FileText className='w-5 h-5 text-[#F7971E]'/>
+            <h1 className='text-xl font-semibold'>Enhanced Content</h1>
+          </div>
+          {content && (
+            <button
+              onClick={() => copyToClipboard(content, 'Content')}
+              className='flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors'
+            >
+              {copiedSection === 'Content' ? (
+                <CheckCheck className='w-4 h-4 text-green-500' />
+              ) : (
+                <Copy className='w-4 h-4' />
+              )}
+              Copy
+            </button>
+          )}
         </div>
 
         {
@@ -186,8 +232,13 @@ const LinkedInOptimizer = () => {
           ) : 
           (
             <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
-              <div className='reset-tw'>
+              <div className='reset-tw prose prose-sm max-w-none'>
                 <Markdown>{content}</Markdown>
+                {content && (
+                  <div className='mt-6 text-xs text-gray-500'>
+                    Note: Review and adjust the optimized content before using it on LinkedIn.
+                  </div>
+                )}
               </div>
             </div>
           )
