@@ -1,13 +1,45 @@
 import { Scissors, Sparkles } from 'lucide-react'
 import React, {useState} from 'react'
+import axios from 'axios';
+import { useAuth } from '@clerk/clerk-react';
+import toast from 'react-hot-toast';
+
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const RemoveObject = () => {
 
   const [input, setInput] = useState('')
   const [object, setObject] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [content, setContent] = useState('')
+  const {getToken} = useAuth()
       
   const onSubmitHandler = async (e)=> {
   e.preventDefault();
+  try {
+    setLoading(true)
+
+    if(object.split(' ').length > 1){
+      return toast('Please enter only one object name')
+    }
+
+    const formData = new FormData()
+    formData.append('image', input)
+    formData.append('object', object)
+    
+    const token = await getToken();
+    const {data} = await axios.post('/api/ai/remove-image-object', formData,
+    {headers: {Authorization: `Bearer ${token}`}})
+
+    if(data.success) {
+    setContent(data.content)
+    } else{
+    toast.error(data.message)
+    }
+  } catch (error) {
+    toast.error(error.message)
+  }
+  setLoading(false)
   }
 
   return (
@@ -28,10 +60,14 @@ const RemoveObject = () => {
               placeholder='e.g., watch or spoon, Only single object name' required/>
     
                 <br/>
-                <button className='w-full flex justify-center items-center gap-2
+                <button disabled={loading} className='w-full flex justify-center items-center gap-2
                 bg-gradient-to-r from-[#8E2DE2] to-[#4A00E0] text-white px-4 py-2 mt-6
                 text-sm rounded-lg cursor-pointer'>
-                  <Scissors className='w-5'/>
+                  {
+                    loading ? <span className='w-4 h-4 my-1 rounded-full border-2
+                    border-t-transparent animate-pulse'></span>
+                    : <Scissors className='w-5'/>
+                  }
                   Remove Object
                 </button>
       
@@ -43,13 +79,22 @@ const RemoveObject = () => {
                 <Scissors className='w-5 h-5 text-[#8E2DE2]'/>
                 <h1 className='text-xl font-semibold'>Processed Image</h1>
             </div>
-    
-            <div className='flex-1 flex justify-center items-center'>
+
+            {
+              !content ? 
+              (
+              <div className='flex-1 flex justify-center items-center'>
               <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
               <Scissors className='w-9 h-9'/>
               <p>Upload an image and click "Remove Object" to get started</p>
               </div>
             </div>
+              )
+              :
+              (
+                <img src={content} alt='image' className='mt-3 w-full h-full'/>
+              )
+            }
     
         </div>
         </div>

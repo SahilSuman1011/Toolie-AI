@@ -85,8 +85,6 @@ const RemoveBackground = () => {
               )
             }
     
-
-    
         </div>
         </div>
   )
