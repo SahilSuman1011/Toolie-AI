@@ -6,6 +6,7 @@ import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
 import { createRequire } from 'module';
+
 const require = createRequire(import.meta.url);
 const pdf = require('pdf-parse');
 
@@ -151,7 +152,7 @@ export const removeImageBackground = async (req, res) => {
     try{
     // plan and free_usage from auth middleware
         const {userId} = req.auth();
-        const {image} = req.file;
+        const image = req.file;
         const plan = req.plan;
 
         if(plan !== 'premium'){
@@ -183,7 +184,7 @@ export const removeImageObject = async (req, res) => {
     try{
     // plan and free_usage from auth middleware
         const {userId} = req.auth();
-        const {image} = req.file;
+        const image = req.file;
         const {object} = req.body;
         const plan = req.plan;
 
@@ -230,7 +231,7 @@ export const resumeReview = async (req, res) => {
         const dataBuffer = fs.readFileSync(resumeReview.path)
         const pdfData = await pdf(dataBuffer);
 
-        const prompt = `Review the followinf resumme and provide constructivve feedback
+        const prompt = `Review the following resumme and provide constructivve feedback
         on its strengths, weaknesses and areas for improvement. Resume Content:\n\n${pdfData.text}`
 
         const response = await AI.chat.completions.create({
