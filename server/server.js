@@ -12,26 +12,60 @@ await connectCloudinary();
 
 // Configure CORS
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'https://toolie-ai.vercel.app',
+  origin: [
+    'https://toolie-ai.vercel.app',
+    'http://localhost:5173',
+    /\.clerk\.accounts\.dev$/,
+    /\.clerk\.com$/
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-CSRF-Token',
+    'X-Requested-With',
+    'Accept',
+    'Accept-Version',
+    'Content-Length',
+    'Content-MD5',
+    'Date',
+    'X-Api-Version',
+    'clerk-frontend-api'
+  ],
   credentials: true,
   optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 
-// Enable pre-flight requests for all routes
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', process.env.CORS_ORIGIN || 'https://toolie-ai.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version');
-  res.header('Access-Control-Allow-Credentials', true);
-  if ('OPTIONS' === req.method) {
-    res.sendStatus(200);
-  } else {
-    next();
+// Add security headers
+app.use((req, res, next) => {
+  // CORS headers
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Content Security Policy
+  res.header(
+    'Content-Security-Policy',
+    "default-src 'self' https://toolie-ai.vercel.app https://toolie-ai-server.vercel.app *.clerk.accounts.dev *.clerk.com; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.clerk.accounts.dev *.clerk.com; " +
+    "style-src 'self' 'unsafe-inline'; " +
+    "img-src 'self' data: blob: https: *.clerk.accounts.dev *.clerk.com; " +
+    "connect-src 'self' https://toolie-ai.vercel.app https://toolie-ai-server.vercel.app " +
+    "*.clerk.accounts.dev *.clerk.com https://api.cloudinary.com; " +
+    "frame-src 'self' *.clerk.accounts.dev *.clerk.com; " +
+    "worker-src 'self' blob:;"
+  );
+
+  // Other security headers
+  res.header('X-Content-Type-Options', 'nosniff');
+  res.header('X-Frame-Options', 'DENY');
+  res.header('X-XSS-Protection', '1; mode=block');
+  res.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
+  next();
 });
 
 app.use(express.json())
