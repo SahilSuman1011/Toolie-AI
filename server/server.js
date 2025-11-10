@@ -8,7 +8,15 @@ import connectCloudinary from './configs/cloudinary.js';
 
 const app = express()
 
-await connectCloudinary();
+// Health check endpoint (before any middleware)
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+// Initialize Cloudinary only if credentials are available
+if (process.env.CLOUDINARY_CLOUD_NAME) {
+    await connectCloudinary();
+}
 
 // Configure CORS
 const corsOptions = {
