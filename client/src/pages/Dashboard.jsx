@@ -5,9 +5,7 @@ import CreationItem from '../components/CreationItem'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-// Configure axios with base URL and default headers
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'https://toolie-ai-server.vercel.app/api';
-axios.defaults.withCredentials = true;
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const Dashboard = () => {
 const [creations, setCreations] = useState([])
@@ -63,7 +61,7 @@ useEffect(()=>{
                 </h2>
             </div>
             <div className='w-10 h-10 rounded-lg bg-gradient-to-br from-[#FF61C5]
-            to-[#9E53EE] text-white flex justify-center items-center'>
+            to-[#347eda] text-white flex justify-center items-center'>
               <Gem className='w-5 text-white'/>
             </div>
           </div>
