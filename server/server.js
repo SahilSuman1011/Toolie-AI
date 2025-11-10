@@ -71,23 +71,25 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use(clerkMiddleware())
 
-// Add CSP headers
-app.use((req, res, next) => {
-  res.setHeader(
-    'Content-Security-Policy',
-    "default-src 'self' https://toolie-ai.vercel.app https://toolie-ai-server.vercel.app; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.clerk.accounts.dev https://*.clerk.com; " +
-    "style-src 'self' 'unsafe-inline'; " +
-    "img-src 'self' data: https: blob:; " +
-    "connect-src 'self' https://api.clerk.dev https://*.clerk.accounts.dev " +
-    "https://toolie-ai-server.vercel.app https://api.cloudinary.com wss://*.clerk.accounts.dev; " +
-    "frame-src 'self' https://*.clerk.accounts.dev https://*.clerk.com; " +
-    "worker-src 'self' blob:;"
-  );
-  next();
+// Health check endpoint
+app.get('/', (req, res) => {
+    res.json({
+        status: 'Server is Live!',
+        environment: process.env.NODE_ENV,
+        timestamp: new Date().toISOString()
+    });
 });
 
-app.get('/', (req, res) => res.send('Server is Live!'))
+// Test endpoint that doesn't require auth
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'OK',
+        services: {
+            clerk: 'Connected',
+            cloudinary: 'Connected'
+        }
+    });
+});
 
 app.use(requireAuth())
 

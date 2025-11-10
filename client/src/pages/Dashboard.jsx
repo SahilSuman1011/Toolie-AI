@@ -5,7 +5,9 @@ import CreationItem from '../components/CreationItem'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+// Configure axios with base URL and default headers
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'https://toolie-ai-server.vercel.app/api';
+axios.defaults.withCredentials = true;
 
 const Dashboard = () => {
 const [creations, setCreations] = useState([])
