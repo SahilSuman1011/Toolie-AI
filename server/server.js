@@ -12,11 +12,16 @@ await connectCloudinary();
 
 // Configure CORS
 app.use(cors({
-  origin: ['https://toolie-ai.vercel.app', 'http://localhost:5173'],
+  origin: process.env.CORS_ORIGIN || 'https://toolie-ai.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Date', 'X-Api-Version'],
+  credentials: true,
+  preflightContinue: true,
+  optionsSuccessStatus: 200
 }));
+
+// Handle OPTIONS preflight requests
+app.options('*', cors());
 
 app.use(express.json())
 app.use(clerkMiddleware())
