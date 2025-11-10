@@ -16,7 +16,7 @@ const LinkedInOptimizer = () => {
   })
   const [loading, setLoading] = useState(false)
   const [content, setContent] = useState('')
-  const [showHelp, setShowHelp] = useState(false)
+  
   const [copiedSection, setCopiedSection] = useState('')
   const {getToken} = useAuth()
 
@@ -206,19 +206,18 @@ const LinkedInOptimizer = () => {
             <FileText className='w-5 h-5 text-[#F7971E]'/>
             <h1 className='text-xl font-semibold'>Enhanced Content</h1>
           </div>
-          {content && (
-            <button
-              onClick={() => copyToClipboard(content, 'Content')}
-              className='flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors'
-            >
-              {copiedSection === 'Content' ? (
-                <CheckCheck className='w-4 h-4 text-green-500' />
-              ) : (
-                <Copy className='w-4 h-4' />
-              )}
-              Copy
-            </button>
-          )}
+          <button
+            onClick={() => copyToClipboard(content, 'Content')}
+            disabled={!content}
+            className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+            title={content ? 'Copy to clipboard' : 'Generate content first'}
+          >
+            {copiedSection === 'Content' ? (
+              <CheckCheck className='w-5 h-5 text-green-500' />
+            ) : (
+              <Copy className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+            )}
+          </button>
         </div>
 
         {

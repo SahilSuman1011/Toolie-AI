@@ -1,4 +1,4 @@
-import { Hash, Sparkles , Edit, HashIcon } from 'lucide-react'
+import { Hash, Sparkles, Edit, HashIcon, Copy, Check } from 'lucide-react'
 import React, {useState} from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast';
@@ -16,7 +16,19 @@ const BlogTitles = () => {
     const [input, setInput] = useState('')
     const [loading, setLoading] = useState(false)
     const [content, setContent] = useState('')
+    const [copied, setCopied] = useState(false)
     const {getToken} = useAuth()
+
+    const handleCopy = async () => {
+      try {
+        await navigator.clipboard.writeText(content);
+        setCopied(true);
+        toast.success('Copied to clipboard!');
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        toast.error('Failed to copy to clipboard');
+      }
+    }
   
     const onSubmitHandler = async (e)=> {
       e.preventDefault();
@@ -77,10 +89,24 @@ const BlogTitles = () => {
             {/* Right Col */}
             <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
             border-gray-200 min-h-96'>
-              <div className='flex items-center gap-3'>
-                <Hash className='w-5 h-5 text-[#4158D0]'/>
-                <h1 className='text-xl font-semibold'>Generated Titles</h1>
-            </div>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-3'>
+                  <Hash className='w-5 h-5 text-[#4158D0]'/>
+                  <h1 className='text-xl font-semibold'>Generated Titles</h1>
+                </div>
+                <button
+                  onClick={handleCopy}
+                  disabled={!content}
+                  className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+                  title={content ? 'Copy to clipboard' : 'Generate titles first'}
+                >
+                  {copied ? (
+                    <Check className='w-5 h-5 text-green-500' />
+                  ) : (
+                    <Copy className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+                  )}
+                </button>
+              </div>
             {
               !content ? (
               <div className='flex-1 flex justify-center items-center'>

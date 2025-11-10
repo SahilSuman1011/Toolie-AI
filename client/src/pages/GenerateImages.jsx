@@ -1,4 +1,4 @@
-import { Sparkles, Edit, Hash, Image } from 'lucide-react'
+import { Sparkles, Edit, Hash, Image, Download } from 'lucide-react'
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useAuth } from '@clerk/clerk-react';
@@ -9,8 +9,8 @@ axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 
 const GenerateImages = () => {
 
-  const imageStyle = ['Cartoon', '3D Render', 'Pixel Art', 'Painting', 'Sketch', 'Portrait', 'Ghibli', 
-    'Anime', 'Realistic', '3D', 'Isometric', 'Cyberpunk', 'Vaporwave', 'Steampunk', 'Line Art', 'Watercolor', 'Oil Painting', 'Surreal', 'Fantasy']
+  const imageStyle = ['Cartoon', '3D Render', 'Pixel Art', 'Painting', 'Sketch', 'Portrait', 'Ghibli',
+    'Realistic', 'Cyberpunk', 'Fantasy']
   const [publish, setPublish] = useState(false)
   const [selectedStyle, setSelectedStyle] = useState('Cartoon')
   const [input, setInput] = useState('')
@@ -18,6 +18,27 @@ const GenerateImages = () => {
   const [content, setContent] = useState('')
 
   const {getToken} = useAuth()
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(content);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      // Create filename from input prompt (limit length and remove invalid characters)
+      const filename = `${input.slice(0, 30).replace(/[^a-z0-9]/gi, '_')}_${selectedStyle}.png`;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      toast.success('Image downloaded successfully!');
+    } catch (error) {
+      console.error('Download error:', error);
+      toast.error('Failed to download image');
+    }
+  };
     
   const onSubmitHandler = async (e)=> {
         e.preventDefault();
@@ -94,10 +115,20 @@ const GenerateImages = () => {
             {/* Right Col */}
             <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
             border-gray-200 min-h-96'>
-              <div className='flex items-center gap-3'>
-                <Image className='w-5 h-5 text-[#43E97B]'/>
-                <h1 className='text-xl font-semibold'>Generated Image</h1>
-            </div>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-3'>
+                  <Image className='w-5 h-5 text-[#43E97B]'/>
+                  <h1 className='text-xl font-semibold'>Generated Image</h1>
+                </div>
+                <button
+                  onClick={handleDownload}
+                  disabled={!content}
+                  className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+                  title={content ? 'Download image' : 'Generate image first'}
+                >
+                  <Download className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+                </button>
+              </div>
             {
               !content ? (
             <div className='flex-1 flex justify-center items-center'>

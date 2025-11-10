@@ -1,4 +1,4 @@
-import { Scissors, Sparkles } from 'lucide-react'
+import { Scissors, Sparkles, Download } from 'lucide-react'
 import React, {useState} from 'react'
 import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
@@ -13,6 +13,27 @@ const RemoveObject = () => {
   const [loading, setLoading] = useState(false)
   const [content, setContent] = useState('')
   const {getToken} = useAuth()
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(content);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      // Create filename using the removed object name
+      const filename = `removed-${object.trim().toLowerCase()}-${new Date().getTime()}.png`;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      toast.success('Image downloaded successfully!');
+    } catch (error) {
+      console.error('Download error:', error);
+      toast.error('Failed to download image');
+    }
+  };
       
   const onSubmitHandler = async (e)=> {
   e.preventDefault();
@@ -75,10 +96,20 @@ const RemoveObject = () => {
             {/* Right Col */}
             <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
             border-gray-200 min-h-96'>
-              <div className='flex items-center gap-3'>
-                <Scissors className='w-5 h-5 text-[#8E2DE2]'/>
-                <h1 className='text-xl font-semibold'>Processed Image</h1>
-            </div>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-3'>
+                  <Scissors className='w-5 h-5 text-[#8E2DE2]'/>
+                  <h1 className='text-xl font-semibold'>Processed Image</h1>
+                </div>
+                <button
+                  onClick={handleDownload}
+                  disabled={!content}
+                  className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+                  title={content ? 'Download processed image' : 'Process an image first'}
+                >
+                  <Download className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+                </button>
+              </div>
 
             {
               !content ? 
