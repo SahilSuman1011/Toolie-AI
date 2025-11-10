@@ -30,59 +30,79 @@ Toolie AI is an enterprise-grade SaaS platform that harnesses cutting-edge AI te
 
 ## ✨ Features
 
-### Implemented Features
+### Core Features
 - 🎨 **Modern UI/UX**
-  - Stunning glassmorphic design
+  - Stunning glassmorphic design with Tailwind CSS
   - Smooth Framer Motion animations
   - Responsive layout for all devices
-  - Interactive floating icons
-  - Dynamic logo scroller
+  - Interactive floating icons and hover effects
+  - Dynamic logo scroller with company logos
 
 - 🔒 **Authentication & Authorization**
   - Secure authentication with Clerk
-  - Protected routes
+  - Protected routes and API endpoints
   - User session management
   - Premium tier access control
+  - Social login integration
 
-- � **Dashboard**
+- 📊 **Dashboard**
   - Clean and intuitive interface
-  - Sidebar navigation
-  - Tool categorization
+  - Sidebar navigation with categories
+  - Recent creations display
   - User profile integration
+  - Usage statistics
 
-### In Progress
+### AI Tools
+
 - ✍️ **AI Article Writer**
   - Content generation using Google Gemini
-  - Customizable article length
+  - Customizable article lengths (500-1600+ words)
   - Topic-based generation
+  - Markdown formatting support
+  - One-click copy functionality
 
 - 🎨 **AI Image Generation**
-  - Text-to-image generation
-  - Multiple style options
+  - Text-to-image generation with Clipdrop API
+  - 10+ artistic style options
   - High-resolution output
   - Public/private sharing options
+  - Easy download functionality
 
 - 📝 **Blog Title Generator**
   - AI-powered title suggestions
-  - SEO optimization
-  - Engagement metrics
-  - Variation generation
+  - Multiple category options
+  - SEO-optimized suggestions
+  - One-click copy feature
+  - Category-based customization
 
-### Planned Features
 - 🖼️ **Background Removal**
   - One-click background removal
   - Transparent PNG output
-  - Batch processing
+  - High-quality processing
+  - Instant download option
+  - Multiple format support
 
 - ✂️ **Object Removal**
   - Smart object selection
   - Content-aware fill
   - Multiple object removal
+  - Original quality preservation
+  - Quick download feature
 
-- 📄 **Resume Reviewer**
-  - AI-powered resume analysis
-  - ATS optimization tips
-  - Formatting suggestions
+- 📑 **LinkedIn Optimizer**
+  - Profile content enhancement
+  - Professional tone adjustment
+  - Keyword optimization
+  - Easy copy/paste functionality
+  - Engagement-focused suggestions
+
+### Community Features
+- 🌟 **Creation Sharing**
+  - Public gallery of AI creations
+  - User attribution
+  - Download capabilities
+  - Engagement features
+  - Community interaction
 
 ## 🚀 Quick Start
 
