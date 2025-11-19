@@ -21,7 +21,7 @@ const LogoScroller = () => {
                 }
             `}</style>
 
-            <div className="overflow-hidden w-full relative max-w-5xl mx-auto select-none -mt-28">
+            <div className="overflow-hidden w-full relative max-w-5xl mx-auto select-none">
                 <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent" />
                 <div className="marquee-inner flex will-change-transform min-w-[200%]" style={{ animationDuration: "15s" }}>
                     <div className="flex">
