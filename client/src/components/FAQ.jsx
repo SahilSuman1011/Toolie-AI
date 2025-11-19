@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, HelpCircle } from 'lucide-react'
 
 const FAQ = () => {
-    const [openIndex, setOpenIndex] = useState(null)
+    const [openIndex, setOpenIndex] = useState(0)
 
     const faqs = [
         {
@@ -32,42 +32,62 @@ const FAQ = () => {
     }
 
     return (
-        <div className="px-6 md:px-16 lg:px-24 xl:px-32 w-full bg-white pb-2.5">
-            <h2 className="text-[42px] md:text-5xl font-semibold text-center text-slate-800 mb-16">
-                Frequently asked questions
-            </h2>
-            
+        <div className="py-10 px-4 sm:px-6 lg:px-8 bg-white w-full">
             <div className="max-w-3xl mx-auto">
-                {faqs.map((faq, index) => (
-                    <div 
-                        key={index}
-                        className="border-b border-gray-200 last:border-b-0"
-                    >
-                        <button
-                            onClick={() => toggleFAQ(index)}
-                            className="w-full flex items-center justify-between py-6 text-left group"
-                        >
-                            <span className="text-lg font-normal text-gray-700 pr-8 group-hover:text-gray-900 transition-colors">
-                                {faq.question}
-                            </span>
-                            <ChevronDown 
-                                className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform duration-300 ${
-                                    openIndex === index ? 'rotate-180' : ''
-                                }`}
-                            />
-                        </button>
-                        
+                <div className="text-center mb-16">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-xl mb-6">
+                        <HelpCircle className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <h2 className="text-4xl font-bold text-slate-900 mb-4">
+                        Frequently asked questions
+                    </h2>
+                    <p className="text-slate-500 text-lg">
+                        Everything you need to know about the product and billing.
+                    </p>
+                </div>
+                
+                <div className="space-y-4">
+                    {faqs.map((faq, index) => (
                         <div 
-                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                                openIndex === index ? 'max-h-96 pb-6' : 'max-h-0'
+                            key={index}
+                            className={`border rounded-2xl transition-all duration-300 ${
+                                openIndex === index 
+                                ? 'border-blue-200 bg-blue-50/30 shadow-sm' 
+                                : 'border-slate-200 hover:border-slate-300'
                             }`}
                         >
-                            <div className="text-base text-gray-600 leading-relaxed pr-12">
-                                {faq.answer}
+                            <button
+                                onClick={() => toggleFAQ(index)}
+                                className="w-full flex items-center justify-between p-6 text-left"
+                            >
+                                <span className={`text-lg font-medium transition-colors ${
+                                    openIndex === index ? 'text-blue-700' : 'text-slate-700'
+                                }`}>
+                                    {faq.question}
+                                </span>
+                                <div className={`p-1 rounded-full transition-all duration-300 ${
+                                    openIndex === index ? 'bg-blue-100 rotate-180' : 'bg-slate-100'
+                                }`}>
+                                    <ChevronDown 
+                                        className={`w-5 h-5 transition-colors ${
+                                            openIndex === index ? 'text-blue-600' : 'text-slate-500'
+                                        }`}
+                                    />
+                                </div>
+                            </button>
+                            
+                            <div 
+                                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                                    openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                                }`}
+                            >
+                                <div className="p-6 pt-0 text-slate-600 leading-relaxed border-t border-transparent">
+                                    {faq.answer}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     )
