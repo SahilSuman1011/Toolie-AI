@@ -55,7 +55,7 @@ const AiTools = () => {
       <div className='max-w-7xl mx-auto'>
         <div className='text-center mb-16'>
           <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4">
-            Features 
+            Features <span className="inline-block animate-bounce" aria-hidden="true">🡻</span>
           </span>
           <h2 className='text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight'>
             Powerful <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">AI Capabilities</span>
