@@ -19,8 +19,9 @@ const Hero = () => {
   }, [])
 
   return (
-    // CHANGE: Removed 'min-h-screen' for mobile (h-auto). Only lg:min-h-screen for desktop.
-    <div className='relative flex flex-col items-center w-full h-auto lg:min-h-screen overflow-hidden bg-white pt-20 pb-8 md:pt-28 md:pb-12 lg:pt-32 lg:pb-20 max-w-[100vw]'>
+    // FIX 1: Changed 'lg:min-h-screen' to 'xl:min-h-screen'. 
+    // This ensures tablets (md/lg) use 'h-auto' and don't stretch nicely to 1300px+ height.
+    <div className='relative flex flex-col items-center w-full h-auto xl:min-h-screen overflow-hidden bg-white pt-20 pb-8 md:pt-24 md:pb-12 xl:pt-32 xl:pb-20 max-w-[100vw]'>
       
       {/* --- ANIMATED BACKGROUND --- */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -96,7 +97,7 @@ const Hero = () => {
         </div>
 
         {/* Social Proof */}
-        <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-4 animate-fade-in-up">
+        <div className="mt-8 md:mt-10 flex flex-col md:flex-row items-center justify-center gap-4 animate-fade-in-up">
           <div className="flex -space-x-3">
             <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200" alt="User 1" className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white hover:-translate-y-1 transition z-10" />
             <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="User 2" className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white hover:-translate-y-1 transition z-20" />
@@ -114,8 +115,8 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Logo Scroller - REDUCED GAP (mt-8 instead of mt-16) */}
-        <div className="mt-8 md:mt-16 w-full max-w-full overflow-hidden">
+        {/* FIX 2: Reduced margin-top on tablet (md:mt-10) to pull logos closer */}
+        <div className="mt-8 md:mt-10 xl:mt-16 w-full max-w-full overflow-hidden">
             <LogoScroller/>
         </div>
 
