@@ -113,7 +113,7 @@ const LinkedInOptimizer = () => {
           <h1 className='text-xl font-semibold'>LinkedIn Profile Optimizer</h1>
         </div>
 
-        <div className='space-y-6'>
+        <div className='space-y-6 mt-6'>
           {/* Headline Section */}
           <div className='relative'>
             <div className='flex items-center gap-2'>
