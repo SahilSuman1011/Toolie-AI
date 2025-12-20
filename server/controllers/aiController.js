@@ -10,6 +10,9 @@ const AI = new OpenAI({
     baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
 });
 
+// Log API key status on startup (first 10 chars only for security)
+console.log('🔑 Gemini API Key loaded:', process.env.GEMINI_API_KEY ? `${process.env.GEMINI_API_KEY.substring(0, 10)}...` : 'MISSING');
+
 // Helper function for retry logic with exponential backoff
 const retryWithBackoff = async (fn, maxRetries = 5, baseDelay = 3000) => {
     for (let i = 0; i < maxRetries; i++) {
