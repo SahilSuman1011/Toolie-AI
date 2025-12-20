@@ -10,6 +10,28 @@ const AI = new OpenAI({
     baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
 });
 
+// Helper function for retry logic with exponential backoff
+const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => {
+    for (let i = 0; i < maxRetries; i++) {
+        try {
+            return await fn();
+        } catch (error) {
+            const isRateLimitError = error.status === 429 || 
+                                    error.response?.status === 429 ||
+                                    error.message?.includes('429') ||
+                                    error.message?.includes('rate limit');
+            
+            if (isRateLimitError && i < maxRetries - 1) {
+                const delay = baseDelay * Math.pow(2, i); // Exponential backoff
+                console.log(`Rate limit hit. Retrying in ${delay}ms... (Attempt ${i + 1}/${maxRetries})`);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            } else {
+                throw error;
+            }
+        }
+    }
+};
+
 export const generateArticle = async (req, res) => {
     try{
     // plan and free_usage from auth middleware
@@ -29,18 +51,20 @@ export const generateArticle = async (req, res) => {
         if(plan !== 'premium' && free_usage >= 10){
             return res.json({success: false, message: "Limit reached. Upgrade to continue."})
         }
-        // AI Logic here 
-        const response = await AI.chat.completions.create({
-        model: "gemini-2.0-flash",
-        messages: [
-        {
-            role: "user",
-            content: prompt,
-        },
-    ],
-            temperature: 0.7,
-            max_tokens: length,
-});
+        // AI Logic here with retry
+        const response = await retryWithBackoff(async () => {
+            return await AI.chat.completions.create({
+                model: "gemini-2.0-flash",
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt,
+                    },
+                ],
+                temperature: 0.7,
+                max_tokens: length,
+            });
+        });
         const content = response.choices[0].message.content
 
         await sql` INSERT INTO creations (user_id, prompt, content, type)
@@ -74,13 +98,15 @@ export const generateBlogTitle = async (req, res) => {
         if(plan !== 'premium' && free_usage >= 10){
             return res.json({success: false, message: "Limit reached. Upgrade to continue."})
         }
-        // AI Logic here 
-        const response = await AI.chat.completions.create({
-        model: "gemini-2.0-flash",
-        messages: [{role: "user", content: prompt,},],
-            temperature: 0.7,
-            max_tokens: 100,
-    });
+        // AI Logic here with retry
+        const response = await retryWithBackoff(async () => {
+            return await AI.chat.completions.create({
+                model: "gemini-2.0-flash",
+                messages: [{role: "user", content: prompt,},],
+                temperature: 0.7,
+                max_tokens: 100,
+            });
+        });
         const content = response.choices[0].message.content
 
         await sql` INSERT INTO creations (user_id, prompt, content, type)
@@ -97,8 +123,12 @@ export const generateBlogTitle = async (req, res) => {
 res.json({success: true, content})
 
 } catch(error) {
-    console.log(error.message)
-    res.json({success: false, message: error.message})
+    console.error('Generate Blog Title Error:', error);
+    const isRateLimitError = error.status === 429 || error.response?.status === 429;
+    const message = isRateLimitError 
+        ? 'Service temporarily busy. Please wait a moment and try again.'
+        : error.message || 'Failed to generate blog title';
+    res.status(isRateLimitError ? 429 : 500).json({success: false, message})
     }
 }
 
@@ -138,8 +168,8 @@ export const generateImage = async (req, res) => {
         res.json({success: true, content: secure_url})
 
 } catch(error) {
-    console.log(error.message)
-    res.json({success: false, message: error.message})
+    console.error('Generate Image Error:', error);
+    res.status(500).json({success: false, message: error.message || 'Failed to generate image'})
     }
 }
 
@@ -170,8 +200,8 @@ export const removeImageBackground = async (req, res) => {
         res.json({success: true, content: secure_url})
 
 } catch(error) {
-    console.log(error.message)
-    res.json({success: false, message: error.message})
+    console.error('Remove Image Background Error:', error);
+    res.status(500).json({success: false, message: error.message || 'Failed to remove background'})
     }
 }
 
@@ -202,8 +232,8 @@ export const removeImageObject = async (req, res) => {
         res.json({success: true, content: imageUrl})
 
 } catch(error) {
-    console.log(error.message)
-    res.json({success: false, message: error.message})
+    console.error('Remove Image Object Error:', error);
+    res.status(500).json({success: false, message: error.message || 'Failed to remove object'})
     }
 }
 
@@ -256,11 +286,13 @@ ${skills ? `## Key Skills & Expertise
 
 ` : ''}Make each section impactful, professional, and optimized for LinkedIn's algorithm while maintaining authenticity.`;
 
-        const response = await AI.chat.completions.create({
-            model: "gemini-2.0-flash",
-            messages: [{role: "user", content: prompt}],
-            temperature: 0.7,
-            max_tokens: 1500,
+        const response = await retryWithBackoff(async () => {
+            return await AI.chat.completions.create({
+                model: "gemini-2.0-flash",
+                messages: [{role: "user", content: prompt}],
+                temperature: 0.7,
+                max_tokens: 1500,
+            });
         });
 
         const content = response.choices[0].message.content;
@@ -271,8 +303,12 @@ ${skills ? `## Key Skills & Expertise
         res.json({success: true, content})
 
     } catch(error) {
-        console.log(error.message)
-        res.json({success: false, message: error.message})
+        console.error('LinkedIn Optimize Error:', error);
+        const isRateLimitError = error.status === 429 || error.response?.status === 429;
+        const message = isRateLimitError 
+            ? 'Service temporarily busy due to high demand. Please wait 30-60 seconds and try again.'
+            : error.message || 'Failed to optimize LinkedIn profile';
+        res.status(isRateLimitError ? 429 : 500).json({success: false, message})
     }
 }
 
