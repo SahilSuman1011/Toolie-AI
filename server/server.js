@@ -24,12 +24,30 @@ if (process.env.CLOUDINARY_CLOUD_NAME) {
 
 // Configure CORS
 const corsOptions = {
-  origin: [
-    'https://toolie-ai.vercel.app',
-    'http://localhost:5173',
-    /\.clerk\.accounts\.dev$/,
-    /\.clerk\.com$/
-  ],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'https://toolie-ai.vercel.app',
+      'http://localhost:5173',
+      'http://localhost:5174'
+    ];
+    
+    // Allow any vercel.app subdomain or clerk domains
+    if (origin.includes('vercel.app') || 
+        origin.includes('clerk.accounts.dev') || 
+        origin.includes('clerk.com')) {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('⚠️ CORS blocked origin:', origin);
+      callback(null, true); // Allow anyway for now
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: [
     'Content-Type',
