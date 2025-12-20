@@ -6,7 +6,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Contributors](https://img.shields.io/github/contributors/SahilSuman1011/Toolie-AI)](https://github.com/SahilSuman1011/Toolie-AI/graphs/contributors)
 
-<img src="client/src/assets/toolie-logo.png" alt="Toolie AI Logo" width="200"/>
+<img src="client/src/assets/TAI.png" alt="Toolie AI Logo" width="200"/>
 
 **Your Enterprise-Grade AI-Powered Productivity Suite**
 
@@ -311,8 +311,6 @@ Free tier limitations:
 - 🔄 Article generation service
 
 ### Pending
-- ⏳ Background removal tool
-- ⏳ Object removal functionality
 - ⏳ Resume review system
 - ⏳ User content management
 - ⏳ Community features
