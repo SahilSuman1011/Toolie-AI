@@ -1,17 +1,17 @@
-import OpenAI from "openai";
+import { CohereClient } from "cohere-ai";
 import sql from "../configs/db.js";
 import { clerkClient } from "@clerk/express";
 import {v2 as cloudinary} from 'cloudinary';
 import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
-const AI = new OpenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-    baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+
+const cohere = new CohereClient({
+    token: process.env.COHERE_API_KEY,
 });
 
-// Log API key status on startup (first 10 chars only for security)
-console.log('🔑 Gemini API Key loaded:', process.env.GEMINI_API_KEY ? `${process.env.GEMINI_API_KEY.substring(0, 10)}...` : 'MISSING');
+// Log API key status on startup
+console.log('🔑 Cohere API Key loaded:', process.env.COHERE_API_KEY ? `${process.env.COHERE_API_KEY.substring(0, 10)}...` : 'MISSING');
 
 // Helper function for retry logic with exponential backoff
 const retryWithBackoff = async (fn, maxRetries = 5, baseDelay = 3000) => {
@@ -58,19 +58,14 @@ export const generateArticle = async (req, res) => {
         }
         // AI Logic here with retry
         const response = await retryWithBackoff(async () => {
-            return await AI.chat.completions.create({
-                model: "gemini-2.0-flash",
-                messages: [
-                    {
-                        role: "user",
-                        content: prompt,
-                    },
-                ],
+            return await cohere.chat({
+                model: "command-r-08-2024",
+                message: prompt,
+                maxTokens: length,
                 temperature: 0.7,
-                max_tokens: length,
             });
         });
-        const content = response.choices[0].message.content
+        const content = response.text
 
         await sql` INSERT INTO creations (user_id, prompt, content, type)
         VALUES (${userId}, ${prompt}, ${content}, 'article') `;
@@ -105,14 +100,14 @@ export const generateBlogTitle = async (req, res) => {
         }
         // AI Logic here with retry
         const response = await retryWithBackoff(async () => {
-            return await AI.chat.completions.create({
-                model: "gemini-2.0-flash",
-                messages: [{role: "user", content: prompt,},],
+            return await cohere.chat({
+                model: "command-r-08-2024",
+                message: prompt,
+                maxTokens: 100,
                 temperature: 0.7,
-                max_tokens: 100,
             });
         });
-        const content = response.choices[0].message.content
+        const content = response.text
 
         await sql` INSERT INTO creations (user_id, prompt, content, type)
         VALUES (${userId}, ${prompt}, ${content}, 'blog-title') `;
@@ -292,15 +287,15 @@ ${skills ? `## Key Skills & Expertise
 ` : ''}Make each section impactful, professional, and optimized for LinkedIn's algorithm while maintaining authenticity.`;
 
         const response = await retryWithBackoff(async () => {
-            return await AI.chat.completions.create({
-                model: "gemini-2.0-flash",
-                messages: [{role: "user", content: prompt}],
+            return await cohere.chat({
+                model: "command-r-08-2024",
+                message: prompt,
+                maxTokens: 1500,
                 temperature: 0.7,
-                max_tokens: 1500,
             });
         });
 
-        const content = response.choices[0].message.content;
+        const content = response.text;
 
         await sql` INSERT INTO creations (user_id, prompt, content, type)
             VALUES (${userId}, ${JSON.stringify({headline, about, experience, skills})}, ${content}, 'linkedin-optimize') `;
