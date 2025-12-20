@@ -64,8 +64,8 @@ const WriteArticle = () => {
     } catch(error){
       console.error('Article generation error:', error);
       if (error.response?.status === 429) {
-        toast.error('Service is busy. Please wait 30-60 seconds and try again.', {
-          duration: 5000,
+        toast.error('AI service is very busy. Please wait 2-3 minutes and try again.', {
+          duration: 6000,
           icon: '⏳'
         });
       } else {

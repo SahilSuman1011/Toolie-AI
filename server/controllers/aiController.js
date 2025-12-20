@@ -11,7 +11,7 @@ const AI = new OpenAI({
 });
 
 // Helper function for retry logic with exponential backoff
-const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => {
+const retryWithBackoff = async (fn, maxRetries = 5, baseDelay = 3000) => {
     for (let i = 0; i < maxRetries; i++) {
         try {
             return await fn();
@@ -19,11 +19,13 @@ const retryWithBackoff = async (fn, maxRetries = 3, baseDelay = 1000) => {
             const isRateLimitError = error.status === 429 || 
                                     error.response?.status === 429 ||
                                     error.message?.includes('429') ||
-                                    error.message?.includes('rate limit');
+                                    error.message?.includes('rate limit') ||
+                                    error.constructor.name === 'RateLimitError';
             
             if (isRateLimitError && i < maxRetries - 1) {
-                const delay = baseDelay * Math.pow(2, i); // Exponential backoff
-                console.log(`Rate limit hit. Retrying in ${delay}ms... (Attempt ${i + 1}/${maxRetries})`);
+                // Exponential backoff: 3s, 6s, 12s, 24s
+                const delay = baseDelay * Math.pow(2, i);
+                console.log(`⏳ Rate limit hit. Waiting ${delay/1000}s before retry... (Attempt ${i + 1}/${maxRetries})`);
                 await new Promise(resolve => setTimeout(resolve, delay));
             } else {
                 throw error;
@@ -124,9 +126,9 @@ res.json({success: true, content})
 
 } catch(error) {
     console.error('Generate Blog Title Error:', error);
-    const isRateLimitError = error.status === 429 || error.response?.status === 429;
+    const isRateLimitError = error.status === 429 || error.response?.status === 429 || error.constructor.name === 'RateLimitError';
     const message = isRateLimitError 
-        ? 'Service temporarily busy. Please wait a moment and try again.'
+        ? 'AI service is very busy right now. Please wait 2-3 minutes and try again, or try with shorter content.'
         : error.message || 'Failed to generate blog title';
     res.status(isRateLimitError ? 429 : 500).json({success: false, message})
     }
@@ -304,9 +306,9 @@ ${skills ? `## Key Skills & Expertise
 
     } catch(error) {
         console.error('LinkedIn Optimize Error:', error);
-        const isRateLimitError = error.status === 429 || error.response?.status === 429;
+        const isRateLimitError = error.status === 429 || error.response?.status === 429 || error.constructor.name === 'RateLimitError';
         const message = isRateLimitError 
-            ? 'Service temporarily busy due to high demand. Please wait 30-60 seconds and try again.'
+            ? 'AI service is very busy right now. Please wait 2-3 minutes and try again. Consider using shorter content if this persists.'
             : error.message || 'Failed to optimize LinkedIn profile';
         res.status(isRateLimitError ? 429 : 500).json({success: false, message})
     }
