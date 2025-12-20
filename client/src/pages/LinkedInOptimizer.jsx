@@ -85,7 +85,12 @@ const LinkedInOptimizer = () => {
       }
     } catch (error) {
       console.error('Optimization error:', error);
-      if (error.response?.status === 401) {
+      if (error.response?.status === 429) {
+        toast.error('Service is busy. Please wait 30-60 seconds and try again.', {
+          duration: 5000,
+          icon: '⏳'
+        });
+      } else if (error.response?.status === 401) {
         toast.error('Please sign in to use this feature');
       } else if (error.response?.data?.message) {
         toast.error(error.response.data.message);

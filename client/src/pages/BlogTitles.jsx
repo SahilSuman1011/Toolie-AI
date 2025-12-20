@@ -42,13 +42,23 @@ const BlogTitles = () => {
 
           if(data.success) {
             setContent(data.content)
+            toast.success('Titles generated successfully!')
           } else{
             toast.error(data.message)
           }
       } catch (error) {
-        toast.error(error.message)
-      }  
-      setLoading(false)
+        console.error('Blog title generation error:', error);
+        if (error.response?.status === 429) {
+          toast.error('Service is busy. Please wait 30-60 seconds and try again.', {
+            duration: 5000,
+            icon: '⏳'
+          });
+        } else {
+          toast.error(error.response?.data?.message || error.message || 'Failed to generate titles')
+        }
+      } finally {
+        setLoading(false)
+      }
     }
 
   return (

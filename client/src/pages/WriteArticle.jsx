@@ -63,7 +63,14 @@ const WriteArticle = () => {
       }
     } catch(error){
       console.error('Article generation error:', error);
-      toast.error(error.response?.data?.message || error.message || 'Failed to generate article')
+      if (error.response?.status === 429) {
+        toast.error('Service is busy. Please wait 30-60 seconds and try again.', {
+          duration: 5000,
+          icon: '⏳'
+        });
+      } else {
+        toast.error(error.response?.data?.message || error.message || 'Failed to generate article')
+      }
     } finally {
       setLoading(false)
     }
