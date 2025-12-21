@@ -32,16 +32,16 @@ const FAQ = () => {
     }
 
     return (
-        <div className="py-10 px-4 sm:px-6 lg:px-8 bg-white w-full">
+        <div className="py-10 px-3 sm:px-6 lg:px-8 bg-white w-full overflow-hidden">
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-xl mb-6">
                         <HelpCircle className="w-6 h-6 text-blue-600" />
                     </div>
-                    <h2 className="text-4xl font-bold text-slate-900 mb-4">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 px-2">
                         Frequently asked questions
                     </h2>
-                    <p className="text-slate-500 text-lg">
+                    <p className="text-slate-500 text-base sm:text-lg px-4">
                         Everything you need to know about the product and billing.
                     </p>
                 </div>
@@ -81,7 +81,7 @@ const FAQ = () => {
                                     openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                                 }`}
                             >
-                                <div className="p-6 pt-0 text-slate-600 leading-relaxed border-t border-transparent">
+                                <div className="p-4 sm:p-6 pt-0 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-transparent">
                                     {faq.answer}
                                 </div>
                             </div>

@@ -22,7 +22,7 @@ const Hero = () => {
   return (
     // FIX 1: Changed 'lg:min-h-screen' to 'xl:min-h-screen'. 
     // This ensures tablets (md/lg) use 'h-auto' and don't stretch nicely to 1300px+ height.
-    <div className='relative flex flex-col items-center w-full h-auto xl:min-h-screen overflow-hidden bg-white pt-20 pb-8 md:pt-24 md:pb-12 xl:pt-32 xl:pb-20 max-w-[100vw]'>
+    <div className='relative flex flex-col items-center w-full h-auto xl:min-h-screen overflow-hidden bg-white pt-24 pb-8 md:pt-28 md:pb-12 xl:pt-36 xl:pb-20'>
       
       {/* --- ANIMATED BACKGROUND --- */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -67,13 +67,13 @@ const Hero = () => {
         </a>
 
         {/* Headline */}
-        <h1 className='max-w-5xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 mb-6'>
+        <h1 className='max-w-5xl mx-auto text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-slate-900 mb-6 px-2'>
           The <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 animate-gradient'>AI Toolbox</span> <br className='hidden md:block' />
           for Modern Builders
         </h1>
 
         {/* Subheadline */}
-        <p className='max-w-2xl mx-auto text-base text-slate-600 sm:text-lg md:text-xl leading-relaxed mb-8 px-4'>
+        <p className='max-w-2xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 px-4'>
           Supercharge your creations with our collection of intelligent, easy-to-use AI tools. 
           Stop building from scratch and start generating.
         </p>

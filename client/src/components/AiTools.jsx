@@ -74,7 +74,7 @@ const AiTools = () => {
   const { user } = useUser()
 
   return (
-    <section className='relative py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/30 to-white'>
+    <section className='relative py-8 sm:py-12 px-3 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/30 to-white overflow-hidden'>
       <div className='max-w-7xl mx-auto'>
         {/* Section Header */}
         <div className='text-center mb-10'>
@@ -86,7 +86,7 @@ const AiTools = () => {
             Powerful Features
           </div>
           
-          <h2 className='text-2xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight leading-tight'>
+          <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight leading-tight px-2'>
             Everything You Need <br className="hidden sm:block" />
             in <span className="relative">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">One Place</span>

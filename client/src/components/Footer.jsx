@@ -13,11 +13,11 @@ export default function Example() {
                 }
             `}</style>
             
-            <footer className="flex flex-col items-center justify-around w-full py-4 text-sm bg-slate-50 text-gray-800/70">
-                <img src={TAI} alt="ToolieAI Logo" className="w-32" />
-                <p>Built by <a href="https://sahil-suman.vercel.app" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-800 hover:text-black transition-all">Sahil Suman</a>. The source code is available on <a href="https://github.com/SahilSuman1011/Toolie-AI" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-800 hover:text-black transition-all">GitHub</a>.</p>
-                <p className="mt-4 text-center">Copyright © 2025 <a href="#" target="_blank" rel="noopener noreferrer">ToolieAI</a>. All rights reservered.</p>
-                <div className="flex items-center gap-4 mt-6">
+            <footer className="flex flex-col items-center justify-around w-full py-6 px-3 text-xs sm:text-sm bg-slate-50 text-gray-800/70">
+                <img src={TAI} alt="ToolieAI Logo" className="w-28 sm:w-32" />
+                <p className="text-center px-2">Built by <a href="https://sahil-suman.vercel.app" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-800 hover:text-black transition-all">Sahil Suman</a>. The source code is available on <a href="https://github.com/SahilSuman1011/Toolie-AI" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-800 hover:text-black transition-all">GitHub</a>.</p>
+                <p className="mt-4 text-center px-2">Copyright © 2025 <a href="#" target="_blank" rel="noopener noreferrer">ToolieAI</a>. All rights reservered.</p>
+                <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-6 px-2">
                     <a href="https://github.com/SahilSuman1011/Toolie-AI" target="_blank" rel="noopener noreferrer" className="font-medium text-gray-800 hover:text-black transition-all">
                         Github
                     </a>
