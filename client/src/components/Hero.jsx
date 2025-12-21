@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowRight, Sparkles, Zap, BarChart3 } from 'lucide-react'
+import { ArrowRight, Sparkles, Zap, BarChart3, X, Play } from 'lucide-react'
 import LogoScroller from './LogoScroller.jsx'
 
 const Hero = () => {
   const navigate = useNavigate()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [showVideo, setShowVideo] = useState(false)
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -90,8 +91,11 @@ const Hero = () => {
             </span>
           </button>
           
-          <button className='w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-slate-700 px-8 py-3.5 rounded-full text-sm font-bold border border-slate-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md transition-all duration-200'
+          <button 
+            onClick={() => setShowVideo(true)}
+            className='w-full sm:w-auto inline-flex items-center cursor-pointer justify-center gap-2 bg-white text-slate-700 px-8 py-3.5 rounded-full text-sm font-bold border border-slate-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-md transition-all duration-200'
           >
+            <Play className="w-4 h-4" />
             Watch demo
           </button>
         </div>
@@ -119,7 +123,53 @@ const Hero = () => {
         <div className="mt-8 md:mt-10 xl:mt-16 w-full max-w-full overflow-hidden">
             <LogoScroller/>
         </div>
+{/* Video Modal */}
+      {showVideo && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-[2px] z-[100] flex items-center justify-center p-4 animate-fade-in"
+          onClick={() => setShowVideo(false)}
+        >
+          <div 
+            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl aspect-video overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowVideo(false)}
+              className="absolute top-4 right-4 z-10 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all hover:scale-110"
+            >
+              <X className="w-5 h-5 text-slate-700" />
+            </button>
 
+            {/* Video Player */}
+            <div className="w-full h-full">
+              {/* Replace YOUR_VIDEO_ID below with your actual YouTube video ID */}
+              {/* Example: If your video is https://www.youtube.com/watch?v=dQw4w9WgXcQ, use just: dQw4w9WgXcQ */}
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/sTGnmhGuhtg?autoplay=1"
+                title="Toolie AI Demo"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              
+              {/* Direct Video Example (uncomment if using direct video file):
+              <video
+                className="w-full h-full"
+                controls
+                autoPlay
+                src="YOUR_VIDEO_URL.mp4"
+              >
+                Your browser does not support the video tag.
+              </video>
+              */}
+            </div>
+          </div>
+        </div>
+      )}
+
+      
       </div>
 
       <style>{`
