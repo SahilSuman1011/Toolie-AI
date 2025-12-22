@@ -67,15 +67,17 @@ const Hero = () => {
         </a>
 
         {/* Headline */}
-        <h1 className='max-w-5xl mx-auto text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-slate-900 mb-6 px-2'>
+        <h1 className='max-w-5xl mx-auto text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-slate-900 mb-6 px-2'>
           The <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 animate-gradient'>AI Toolbox</span> <br className='hidden md:block' />
           for Modern Builders
         </h1>
 
         {/* Subheadline */}
-        <p className='max-w-2xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 leading-relaxed mb-8 px-4'>
-          Supercharge your creations with our collection of intelligent, easy-to-use AI tools. 
-          Stop building from scratch and start generating.
+        <p className='relative max-w-3xl mx-auto text-s sm:text-sm md:text-base text-slate-600 leading-relaxed mb-8 px-4'>
+          <span className='relative inline-block'>
+            Supercharge your creations with our collection of intelligent, easy-to-use AI tools.
+            <span className='absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-400/30 via-indigo-400/30 to-purple-400/30 rounded-full'></span>
+          </span>
         </p>
 
         {/* Buttons */}
