@@ -74,9 +74,33 @@ const Hero = () => {
 
         {/* Subheadline */}
         <p className='relative max-w-3xl mx-auto text-s sm:text-sm md:text-base text-slate-600 leading-relaxed mb-8 px-4'>
-          <span className='relative inline-block'>
-            Supercharge your creations with our collection of intelligent, easy-to-use AI tools.
-            <span className='absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-400/30 via-indigo-400/30 to-purple-400/30 rounded-full'></span>
+          Supercharge your creations with our collection of <span className='relative inline-block font-medium text-slate-700'>intelligent, easy-to-use AI tools.
+            <svg className='absolute -bottom-1 left-0 w-full h-2' viewBox='0 0 200 8' preserveAspectRatio='none'>
+              <path 
+                d='M0,4 Q50,2 100,4 T200,4' 
+                fill='none' 
+                stroke='url(#sparkleGradient)' 
+                strokeWidth='3'
+                strokeLinecap='round'
+                opacity='0.6'
+              />
+              <circle cx='40' cy='1' r='1' fill='#fbbf24' opacity='0.8'>
+                <animate attributeName='opacity' values='0.8;0.3;0.8' dur='2s' repeatCount='indefinite' />
+              </circle>
+              <circle cx='120' cy='1.5' r='0.8' fill='#818cf8' opacity='0.7'>
+                <animate attributeName='opacity' values='0.7;0.3;0.7' dur='2.5s' repeatCount='indefinite' />
+              </circle>
+              <circle cx='170' cy='1' r='1' fill='#a78bfa' opacity='0.8'>
+                <animate attributeName='opacity' values='0.8;0.3;0.8' dur='1.8s' repeatCount='indefinite' />
+              </circle>
+              <defs>
+                <linearGradient id='sparkleGradient' x1='0%' y1='0%' x2='100%' y2='0%'>
+                  <stop offset='0%' stopColor='#60a5fa' />
+                  <stop offset='50%' stopColor='#818cf8' />
+                  <stop offset='100%' stopColor='#a78bfa' />
+                </linearGradient>
+              </defs>
+            </svg>
           </span>
         </p>
 
