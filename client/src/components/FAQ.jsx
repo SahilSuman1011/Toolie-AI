@@ -32,16 +32,16 @@ const FAQ = () => {
     }
 
     return (
-        <div className="py-8 px-3 sm:px-6 lg:px-8 bg-white w-full overflow-hidden">
+        <div className="py-8 px-3 sm:px-6 lg:px-8 bg-slate-900 w-full overflow-hidden">
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-16">
-                    <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-xl mb-6">
-                        <HelpCircle className="w-6 h-6 text-blue-600" />
+                    <div className="inline-flex items-center justify-center p-3 bg-emerald-900/30 rounded-xl mb-6">
+                        <HelpCircle className="w-6 h-6 text-emerald-400" />
                     </div>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 px-2">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 px-2">
                         Frequently asked questions
                     </h2>
-                    <p className="text-slate-500 text-base sm:text-lg px-4">
+                    <p className="text-slate-400 text-base sm:text-lg px-4">
                         Everything you need to know about the product and billing.
                     </p>
                 </div>
@@ -52,8 +52,8 @@ const FAQ = () => {
                             key={index}
                             className={`border rounded-2xl transition-all duration-300 ${
                                 openIndex === index 
-                                ? 'border-blue-200 bg-blue-50/30 shadow-sm' 
-                                : 'border-slate-200 hover:border-slate-300'
+                                ? 'border-emerald-700 bg-emerald-900/20 shadow-sm' 
+                                : 'border-slate-700 hover:border-slate-600'
                             }`}
                         >
                             <button
@@ -61,16 +61,16 @@ const FAQ = () => {
                                 className="w-full flex items-center justify-between p-6 text-left"
                             >
                                 <span className={`text-lg font-medium transition-colors ${
-                                    openIndex === index ? 'text-blue-700' : 'text-slate-700'
+                                    openIndex === index ? 'text-emerald-300' : 'text-slate-300'
                                 }`}>
                                     {faq.question}
                                 </span>
                                 <div className={`p-1 rounded-full transition-all duration-300 ${
-                                    openIndex === index ? 'bg-blue-100 rotate-180' : 'bg-slate-100'
+                                    openIndex === index ? 'bg-emerald-900/50 rotate-180' : 'bg-slate-800'
                                 }`}>
                                     <ChevronDown 
                                         className={`w-5 h-5 transition-colors ${
-                                            openIndex === index ? 'text-blue-600' : 'text-slate-500'
+                                            openIndex === index ? 'text-emerald-400' : 'text-slate-400'
                                         }`}
                                     />
                                 </div>
@@ -81,7 +81,7 @@ const FAQ = () => {
                                     openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                                 }`}
                             >
-                                <div className="p-4 sm:p-6 pt-0 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-transparent">
+                                <div className="p-4 sm:p-6 pt-0 text-sm sm:text-base text-slate-300 leading-relaxed border-t border-transparent">
                                     {faq.answer}
                                 </div>
                             </div>

@@ -32,10 +32,10 @@ const Navbar = () => {
   return (
     <div className={`fixed z-50 w-full backdrop-blur-2xl bg-slate-900/70 flex justify-between items-center h-12 px-4 sm:px-16 xl:px-28 transition-all duration-300 border-b border-slate-800/50 ${hideNavbar ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className='flex items-center gap-2'>
-          <img src={assets.tool} alt='logo' className='w-4 h-10 sm:w-12 cursor-pointer' onClick={() => {
+          <img src={assets.tool} alt='logo' className='w-4 h-10 sm:w-12 hover:cursor-pointer' onClick={() => {
               navigate('/')
           }}/>
-      <h3 className="relative z-10 text-2xl font-bold text-white mb-2 text-center">
+      <h3 className="relative z-10 text-2xl font-bold text-white hover:cursor-pointer mb-2 text-center">
         Toolie<span className='text-blue-500'> AI</span>
       </h3>
         </div>

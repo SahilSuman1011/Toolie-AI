@@ -6,13 +6,13 @@ const CreationItem = ({item}) => {
     const [expanded, setExpanded] = useState(false);
 
   return (
-    <div onClick={() => setExpanded(!expanded)} className='p-4 max-w-5xl text-sm bg-white border border-gray-200 rounded-lg cursor-pointer'>
+    <div onClick={() => setExpanded(!expanded)} className='p-4 max-w-5xl text-sm bg-slate-800 border border-slate-700 rounded-lg cursor-pointer'>
     <div className='flex justify-between items-center gap-4'>
     <div>
         <h2>{item.prompt}</h2>
-            <p className='text-gray-500'>{item.type} - {new Date(item.created_at).toLocaleDateString()}</p>
+            <p className='text-slate-400'>{item.type} - {new Date(item.created_at).toLocaleDateString()}</p>
             </div>
-            <button className='bg-[#EFF6FF] border border-[#BFDBFE] text-[#1E40AF]
+            <button className='bg-emerald-900/30 border border-emerald-700 text-emerald-300
             px-4 py-1 rounded-full whitespace-nowrap'>{item.type}</button>
         </div>
         
@@ -26,7 +26,7 @@ const CreationItem = ({item}) => {
                         w-full max-w-md' />
                          </div>   
                         ) : (
-                            <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-700'>
+                            <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-300'>
                             <div className='reset-tw'>
                              <Markdown>{item.content}</Markdown>
                             </div>
