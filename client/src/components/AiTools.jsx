@@ -19,7 +19,7 @@ const CenterCard = () => {
         <img 
           src={tool} 
           alt="Toolie AI Logo" 
-          className="w-8 h-8 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-500"
+          className="w-10 h-10 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-500"
         />
       </div>
       
@@ -37,7 +37,7 @@ const CenterCard = () => {
       <div className="relative z-10 flex gap-2 sm:gap-6">
         <div className="text-center">
           <div className="flex items-center gap-0.5 sm:gap-1 text-white font-bold text-[10px] sm:text-xl mb-0 sm:mb-1">
-            <Sparkles className="w-2 h-2 sm:w-5 sm:h-5 text-amber-400" />
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
             6+
           </div>
           <div className="text-slate-400 text-[8px] sm:text-sm leading-tight">AI Tools</div>
