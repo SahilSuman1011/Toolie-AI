@@ -33,7 +33,7 @@ const LinkedInOptimizer = () => {
       setCopiedSection(section)
       toast.success(`${section} copied to clipboard!`)
       setTimeout(() => setCopiedSection(''), 2000)
-    } catch (error) {
+    } catch {
       toast.error('Failed to copy text')
     }
   }
@@ -105,28 +105,28 @@ const LinkedInOptimizer = () => {
   }
 
   return (
-    <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 text-slate-700'>
+    <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 bg-slate-900'>
       {/* Left Col*/}
-      <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
+      <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 backdrop-blur-sm'>
         <div className='flex items-center gap-3'>
-          <Sparkles className='w-6 text-[#F7971E]'/>
-          <h1 className='text-xl font-semibold'>LinkedIn Profile Optimizer</h1>
+          <Sparkles className='w-6 text-amber-400'/>
+          <h1 className='text-xl font-semibold text-white'>LinkedIn Profile Optimizer</h1>
         </div>
 
         <div className='space-y-6 mt-6'>
           {/* Headline Section */}
           <div className='relative'>
             <div className='flex items-center gap-2'>
-              <p className='text-sm font-medium'>Headline</p>
+              <p className='text-sm font-medium text-slate-300'>Headline</p>
               <HelpCircle 
-                className='w-4 h-4 text-gray-400 cursor-pointer hover:text-gray-600'
+                className='w-4 h-4 text-slate-500 cursor-pointer hover:text-amber-400 transition-colors'
                 onClick={() => toast.success('Go to your LinkedIn profile → Click the pencil icon next to your name → Copy your headline')}
               />
             </div>
             <textarea 
               value={formData.headline}
               onChange={(e) => handleInputChange('headline', e.target.value)}
-              className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300 text-gray-600'
+              className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-amber-500 transition-colors'
               rows={2}
               placeholder="Paste your LinkedIn headline here"
               required
@@ -191,8 +191,8 @@ const LinkedInOptimizer = () => {
         </div>
 
         <button className='w-full flex justify-center items-center gap-2
-          bg-gradient-to-r from-[#F7971E] to-[#FFD200] text-white px-4 py-2 mt-6
-          text-sm rounded-lg cursor-pointer'>
+          bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white px-4 py-2 mt-6
+          text-sm rounded-lg cursor-pointer shadow-lg shadow-amber-500/20 transition-all disabled:opacity-50'>
           {
             loading ? <span className='w-4 h-4 my-1 rounded-full border-2
               border-t-transparent animate-spin'></span>
@@ -204,23 +204,23 @@ const LinkedInOptimizer = () => {
       </form>
 
       {/* Right Col */}
-      <div className='w-full lg:flex-1 lg:max-w-lg p-4 bg-white rounded-lg flex flex-col border
-        border-gray-200 min-h-96 mx-h-[600px]'>
+      <div className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl flex flex-col border
+        border-slate-700/50 backdrop-blur-sm min-h-96 mx-h-[600px]'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-3'>
-            <FileText className='w-5 h-5 text-[#F7971E]'/>
-            <h1 className='text-xl font-semibold'>Enhanced Content</h1>
+            <FileText className='w-5 h-5 text-amber-400'/>
+            <h1 className='text-xl font-semibold text-white'>Enhanced Content</h1>
           </div>
           <button
             onClick={() => copyToClipboard(content, 'Content')}
             disabled={!content}
-            className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+            className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-slate-700 cursor-pointer' : 'cursor-not-allowed'}`}
             title={content ? 'Copy to clipboard' : 'Generate content first'}
           >
             {copiedSection === 'Content' ? (
-              <CheckCheck className='w-5 h-5 text-green-500' />
+              <CheckCheck className='w-5 h-5 text-emerald-500' />
             ) : (
-              <Copy className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+              <Copy className={`w-5 h-5 ${content ? 'text-slate-400 hover:text-amber-400' : 'text-slate-600'}`} />
             )}
           </button>
         </div>
@@ -228,15 +228,15 @@ const LinkedInOptimizer = () => {
         {
           !content ? (
             <div className='flex-1 flex justify-center items-center'>
-              <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
+              <div className='text-sm flex flex-col items-center gap-5 text-slate-500'>
                 <FileText className='w-9 h-9'/>
                 <p>Enter your LinkedIn content and click "Optimize Profile" to get started</p>
               </div>
             </div>
           ) : 
           (
-            <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
-              <div className='reset-tw prose prose-sm max-w-none'>
+            <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-300'>
+              <div className='reset-tw prose prose-invert prose-sm max-w-none'>
                 <Markdown>{content}</Markdown>
                 {content && (
                   <div className='mt-6 text-xs text-gray-500'>

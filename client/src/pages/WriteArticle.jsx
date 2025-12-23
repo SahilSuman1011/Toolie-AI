@@ -30,7 +30,7 @@ const WriteArticle = () => {
       setCopied(true);
       toast.success('Copied to clipboard!');
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error('Failed to copy to clipboard');
     }
   }
@@ -77,23 +77,23 @@ const WriteArticle = () => {
   }
 
   return (
-    <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 text-slate-700'>
+    <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 bg-slate-900'>
         {/* Left Col*/}
-        <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
+        <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 backdrop-blur-sm'>
           <div className='flex items-center gap-3'>
-            <Sparkles className='w-6 text-[#FF6B6B]'/>
-            <h1 className='text-xl font-semibold'>Article Configuration</h1>
+            <Sparkles className='w-6 text-emerald-400'/>
+            <h1 className='text-xl font-semibold text-white'>Article Configuration</h1>
           </div>
-          <p className='mt-6 text-sm font-medium'>Article Topic</p>
+          <p className='mt-6 text-sm font-medium text-slate-300'>Article Topic</p>
 
-          <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300'
+          <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-emerald-500 transition-colors'
           placeholder='The Future of Artificial Intelligence is ....' required/>
-          <p className='mt-4 text-sm font-medium'>Article Length</p>
+          <p className='mt-4 text-sm font-medium text-slate-300'>Article Length</p>
 
           <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
             {articleLength.map((item, index) => (
               <span onClick={() => setSelectedLength(item)} 
-              className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedLength.text === item.text ? 'bg-red-50 text-red-700 border-red-300' : 'text-gray-500 border-gray-300'}`}
+              className={`text-xs px-4 py-1.5 border rounded-full cursor-pointer transition-all ${selectedLength.text === item.text ? 'bg-emerald-600 text-white border-emerald-500 shadow-lg shadow-emerald-500/20' : 'text-slate-400 border-slate-600 hover:border-emerald-500/50'}`}
               key={index}>{item.text}</span>
             ))}
           </div>
@@ -101,8 +101,8 @@ const WriteArticle = () => {
           <div>
             <br/>
             <button disabled={loading} className='w-full flex justify-center items-center gap-2
-            bg-gradient-to-r from-[#FF6B6B] to-[#FF8E53] text-white px-4 py-2 mt-6
-            text-sm rounded-lg cursor-pointer'>
+            bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white px-4 py-2 mt-6
+            text-sm rounded-lg cursor-pointer shadow-lg shadow-emerald-500/20 transition-all disabled:opacity-50'>
               {
                 loading ? <span className='W-4 h-4 my-1 rounded-full border-2
                 border-t-transparent animate-spin'></span>
@@ -114,35 +114,35 @@ const WriteArticle = () => {
         </form>
 
         {/* Right Col */}
-        <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
-        border-gray-200 min-h-96 max-h-[600px]'>
+        <div className='flex-1 max-w-lg p-6 bg-slate-800/50 rounded-xl flex flex-col border
+        border-slate-700/50 backdrop-blur-sm min-h-96 max-h-[600px]'>
           <div className='flex items-center justify-between'>
             <div className='flex items-center gap-3'>
-              <Edit className='w-5 h-5 text-[#FF6B6B]'/>
-              <h1 className='text-xl font-semibold'>Generated Article</h1>
+              <Edit className='w-5 h-5 text-emerald-400'/>
+              <h1 className='text-xl font-semibold text-white'>Generated Article</h1>
             </div>
             <button
               onClick={handleCopy}
               disabled={!content}
-              className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+              className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-slate-700 cursor-pointer' : 'cursor-not-allowed'}`}
               title={content ? 'Copy to clipboard' : 'Generate article first'}
             >
               {copied ? (
-                <Check className='w-5 h-5 text-green-500' />
+                <Check className='w-5 h-5 text-emerald-500' />
               ) : (
-                <Copy className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+                <Copy className={`w-5 h-5 ${content ? 'text-slate-400 hover:text-emerald-400' : 'text-slate-600'}`} />
               )}
             </button>
           </div>
 
         {!content ? (<div className='flex-1 flex justify-center items-center'>
-          <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
+          <div className='text-sm flex flex-col items-center gap-5 text-slate-500'>
           <Edit className='w-9 h-9'/>
           <p>Enter a topic and click "Generate Article" to get started</p>
           </div>
         </div>
       ) : (
-        <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
+        <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-300 prose prose-invert prose-sm max-w-none'>
           <div className='.reset-tw'>
           <Markdown>{content}</Markdown> 
           </div>
