@@ -1,0 +1,127 @@
+/* Clerk Pricing Table Custom Styling */
+.pricing-table-container {
+  width: 100%;
+}
+
+/* Style all pricing cards */
+.pricing-table-container :global(.cl-card) {
+  background: rgba(30, 41, 59, 0.5) !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+  border-radius: 1.5rem !important;
+  backdrop-filter: blur(12px) !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.pricing-table-container :global(.cl-card:hover) {
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.1) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Featured/Popular plan highlight */
+.pricing-table-container :global(.cl-card[data-featured="true"]),
+.pricing-table-container :global(.cl-card:nth-child(2)) {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  background: rgba(16, 185, 129, 0.05) !important;
+  box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Card title/plan name */
+.pricing-table-container :global(.cl-card h3),
+.pricing-table-container :global(.cl-planName) {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+}
+
+/* Price */
+.pricing-table-container :global(.cl-price) {
+  color: #10b981 !important;
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+}
+
+/* Description text */
+.pricing-table-container :global(.cl-card p),
+.pricing-table-container :global(.cl-planDescription) {
+  color: #cbd5e1 !important;
+}
+
+/* Feature list items */
+.pricing-table-container :global(.cl-features li),
+.pricing-table-container :global(.cl-featureList li) {
+  color: #e2e8f0 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Checkmarks and icons */
+.pricing-table-container :global(.cl-features svg),
+.pricing-table-container :global(.cl-icon) {
+  color: #10b981 !important;
+}
+
+/* Subscribe/CTA buttons */
+.pricing-table-container :global(.cl-button),
+.pricing-table-container :global(.cl-card button) {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3) !important;
+}
+
+.pricing-table-container :global(.cl-button:hover),
+.pricing-table-container :global(.cl-card button:hover) {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Secondary/outline buttons */
+.pricing-table-container :global(.cl-button--outline) {
+  background: transparent !important;
+  border: 2px solid #10b981 !important;
+  color: #10b981 !important;
+}
+
+.pricing-table-container :global(.cl-button--outline:hover) {
+  background: rgba(16, 185, 129, 0.1) !important;
+  border-color: #059669 !important;
+}
+
+/* Badge (Popular, Best Value, etc) */
+.pricing-table-container :global(.cl-badge),
+.pricing-table-container :global(.cl-planBadge) {
+  background: linear-gradient(135deg, #10b981, #06b6d4) !important;
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+  padding: 0.25rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Grid layout for multiple plans */
+.pricing-table-container :global(.cl-pricingTable) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 1.5rem !important;
+  margin-top: 2rem !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .pricing-table-container :global(.cl-card) {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+  }
+  
+  .pricing-table-container :global(.cl-price) {
+    font-size: 2rem !important;
+  }
+}

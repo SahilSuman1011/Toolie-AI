@@ -12,6 +12,11 @@ import { ClerkProvider } from '@clerk/clerk-react'
     throw new Error('Add your Clerk Publishable Key to the .env file')
   }
 
+// Add dark class to root element
+if (typeof document !== 'undefined') {
+  document.documentElement.classList.add('dark');
+}
+
 createRoot(document.getElementById('root')).render(
 
   <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>

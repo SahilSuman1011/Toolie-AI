@@ -10,10 +10,12 @@ import ai_gen_img_1 from "./ai_gen_img_1.png";
 import ai_gen_img_2 from "./ai_gen_img_2.png";
 import ai_gen_img_3 from "./ai_gen_img_3.png";
 import TAI from "./TAI.png";
+import tool from "./tool.png";
 
 export const assets = {
     logo,
     TAI,
+    tool,
     gradientBackground,
     user_group,
     star_icon,
