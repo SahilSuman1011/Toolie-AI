@@ -32,29 +32,32 @@ Toolie AI is an enterprise-grade SaaS platform that harnesses cutting-edge AI te
 
 ### Core Features
 - 🎨 **Modern UI/UX**
-  - Stunning glassmorphic design with Tailwind CSS
-  - Smooth Framer Motion animations
-  - Responsive layout for all devices
-  - Interactive floating icons and hover effects
-  - Dynamic logo scroller with company logos
-  - Mobile-optimized sidebar with backdrop overlay
+  - Stunning dark mode design with emerald/cyan/amber color scheme
+  - Glassmorphic cards with backdrop blur effects
+  - Smooth animations and transitions throughout
+  - Responsive layout optimized for all devices
+  - Floating decorative icons with gradient animations
+  - Bento grid layout showcasing AI tools with central logo card
+  - Mobile-optimized sidebar with dark slate theme
+  - Enhanced hover effects and interactive elements
 
 - 🔒 **Authentication & Authorization**
-  - Secure authentication with Clerk
+  - Secure authentication powered by Clerk
   - Protected routes and API endpoints
-  - User session management
-  - Premium tier access control (via Clerk)
-  - Social login integration
-  - Automatic metadata tracking for usage limits
+  - Session management with JWT tokens
+  - Premium tier access control
+  - Social login integration (Google, GitHub)
+  - Automatic usage tracking and limits
 
 - 📊 **Dashboard**
-  - Clean and intuitive interface
-  - Sidebar navigation with categories
-  - Recent creations display with full details
-  - User profile integration
-  - Real-time creation count
-  - Active plan display (Free/Premium)
-  - Loading states and error handling
+  - Dark-themed interface with emerald accent colors
+  - Intuitive sidebar navigation with tool categories
+  - Recent creations display with metadata
+  - User profile integration with Clerk
+  - Real-time creation statistics
+  - Active plan indicator (Free/Premium)
+  - Smooth loading states and error handling
+  - Responsive design for mobile and desktop
 
 ### AI Tools
 
@@ -112,14 +115,13 @@ Toolie AI is an enterprise-grade SaaS platform that harnesses cutting-edge AI te
   - Premium feature only
 
 ### Community Features
-- 🌟 **Creation Sharing** (Fully Functional ✅)
-  - Public gallery of published AI-generated images
-  - User attribution display
-  - One-click download capabilities
-  - Grid layout with hover effects
-  - Image prompt display on hover
-  - Filtering by creation type
-  - Real-time updates
+- 🌟 **Creation Sharing**
+  - Public gallery with dark theme design
+  - User-generated AI image showcase
+  - One-click download functionality
+  - Responsive grid layout with smooth hover effects
+  - Image prompts displayed on hover
+  - Real-time gallery updates
 
 ## 🚀 Quick Start
 
@@ -174,14 +176,14 @@ DATABASE_URL=your_postgresql_connection_string
 
 ### Frontend
 - **Framework**: React 18 with Vite
-- **Styling**: TailwindCSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Authentication**: Clerk React
-- **HTTP Client**: Axios
-- **Toast Notifications**: React Hot Toast
-- **Loading States**: React Loading Skeleton
-- **Markdown Rendering**: React Markdown
+- **Styling**: TailwindCSS v4 with custom dark theme
+- **Animations**: Framer Motion for smooth transitions
+- **Icons**: Lucide React icon library
+- **Authentication**: Clerk React SDK
+- **HTTP Client**: Axios with interceptors
+- **Notifications**: React Hot Toast
+- **Markdown**: React Markdown for content rendering
+- **Routing**: React Router DOM v6
 
 ### Backend
 - **Runtime**: Node.js 18+
@@ -205,28 +207,31 @@ Toolie-AI/
 ├── client/                      # Frontend React application
 │   ├── public/                 # Static assets
 │   │   ├── ai-icons/          # Tool icons (12 icons)
-│   │   ├── company-logos/     # Partner logos
 │   │   └── gradientBackground.png
 │   └── src/
-│       ├── assets/            # Asset exports
+│       ├── assets/            # Asset exports (images, tool data)
 │       ├── components/        # React components
 │       │   ├── ui/           # Reusable UI components
-│       │   ├── AiTools.jsx   # Tools grid display
-│       │   ├── CreationItem.jsx  # Individual creation card
-│       │   ├── FAQ.jsx       # FAQ accordion
-│       │   ├── Footer.jsx    # Site footer
-│       │   ├── Hero.jsx      # Landing hero section
-│       │   ├── LogoScroller.jsx  # Animated logos
-│       │   ├── Navbar.jsx    # Navigation bar
-│       │   ├── Plan.jsx      # Pricing cards
-│       │   ├── Sidebar.jsx   # Dashboard sidebar
+│       │   ├── AiTools.jsx   # Bento grid with tools
+│       │   ├── CreationItem.jsx  # Creation card component
+│       │   ├── FAQ.jsx       # FAQ accordion (dark theme)
+│       │   ├── Footer.jsx    # Site footer (dark theme)
+│       │   ├── Hero.jsx      # Landing hero with floating icons
+│       │   ├── Navbar.jsx    # Navigation bar (dark theme)
+│       │   ├── Plan.jsx      # Pricing cards (emerald theme)
+│       │   ├── Sidebar.jsx   # Dashboard sidebar (dark slate)
 │       │   └── Testimonial.jsx  # User testimonials
 │       └── pages/            # Page components
-│           ├── BlogTitles.jsx       # Blog title generator
-│           ├── Community.jsx        # Public gallery
-│           ├── Dashboard.jsx        # User dashboard
-│           ├── GenerateImages.jsx   # Image generation
-│     API Endpoints
+│           ├── BlogTitles.jsx       # Blog title generator (cyan theme)
+│           ├── Community.jsx        # Public gallery (dark theme)
+│           ├── Dashboard.jsx        # User dashboard (dark theme)
+│           ├── GenerateImages.jsx   # Image generation (amber theme)
+│           ├── Home.jsx            # Landing page
+│           ├── Layout.jsx          # Dashboard layout wrapper
+│           ├── LinkedInOptimizer.jsx  # LinkedIn tool (amber theme)
+│           ├── RemoveBackground.jsx # BG removal (pink theme)
+│           ├── RemoveObject.jsx    # Object removal (purple theme)
+│           └── WriteArticle.jsx    # Article writer (emerald theme)
 
 ### AI Routes (`/api/ai`)
 - `POST /generate-article` - Generate AI article (auth required)
@@ -282,74 +287,52 @@ Free tier limitations:
 
 ## 🔧 Current Implementation Status
 
-### Completed
-- ✅ Modern UI implementation with Framer Motion animations
-- ✅ Authentication setup with Clerk
+### Completed ✅
+- ✅ Complete UI revamp with dark mode design
+- ✅ Emerald/cyan/amber color scheme implementation
+- ✅ Bento grid layout with central logo card
+- ✅ Authentication system with Clerk
 - ✅ Responsive design and mobile optimization
-- ✅ Basic routing and protected routes
-- ✅ Landing page with interactive elements
-- ✅ Dashboard layout and nav
+- ✅ Protected routes and API security
+- ✅ All 6 AI tools fully functional
 - ✅ Backend API with Cohere AI integration
-- ✅ Article generation service
-- ✅ BCommunity features implementation
-- 🔄 Public gallery optimization
-- 🔄 Advanced analytics dashboard
-- 🔄 Performance optimization for AI responsesreSQL/Neon)
-- ✅ User creation tracking
+- ✅ PostgreSQL database with Neon
+- ✅ User creation tracking system
 - ✅ Premium tier access control
 - ✅ Rate limiting with retry logic
 - ✅ CORS configuration for production
-- ✅ Error handling and user feedbackigation
-- ✅ User dashboard analytics enhancement
-- ⏳ Batch processing capabilities
-- ⏳ Advanced sharing features
-- ⏳ Team collaboration tools
-- ⏳ Usage analytics and insights
-- ⏳ API rate optimiz implementation
-- 🔄 Premium tier functionality
-- 🔄 Image generation service
-- 🔄 Article generation service
+- ✅ Error handling and user feedback
+- ✅ Community gallery features
+- ✅ Dark-themed dashboard and sidebar
 
-### Pending
-- ⏳ Resume review system
-- ⏳ User content management
-- ⏳ Community features
-- ⏳ Analytics integration
+## 🗺️ Roadmap
 
-## �️ Roadmap
-
-### Phase 1 (Current)
-- Complete core AI tool implementations
 ### Phase 1 (Completed ✅)
-- ✅ Complete core AI tool implementations
-- ✅ Finalize backend API structure
-- ✅ Implement premium tier system
-- ✅ Add error handling and loading states
-- ✅ Implement retry logic for API calls
+- ✅ Core AI tool implementations (6 tools)
+- ✅ Backend API structure with Express.js
+- ✅ Premium tier system via Clerk
+- ✅ Error handling and loading states
+- ✅ Retry logic for API calls
+- ✅ Complete UI revamp with dark theme
+- ✅ Responsive design for all devices
 
-### Phase 2 (Current)
-- 🔄 Optimize AI response times
-- 🔄 Add user dashboard analytics
-- 🔄 Implement content saving system
-- 🔄 Add batch processing capabilities
-- 🔄 Enhance community features
+### Phase 2 (In Progress 🔄)
+- 🔄 AI response time optimization
+- 🔄 Enhanced dashboard analytics
+- 🔄 Content history and management
+- 🔄 Batch processing capabilities
+- 🔄 Advanced community features
+- 🔄 Usage insights and reporting
 
-### Phase 3 (Future)
+### Phase 3 (Planned ⏳)
+- ⏳ Team collaboration features
 - ⏳ Advanced sharing capabilities
-- ⏳ Implement collaboration tools
-- ⏳ Add real-time features
-- ⏳ Performance optimizations
-- ⏳ Mobile app development
+- ⏳ Real-time collaboration tools
+- ⏳ API access for developers
+- ⏳ Mobile application
+- ⏳ Additional AI tools and integrations
 
-This project is currently in active development. If you'd like to contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/YourFeature`)
-3. Commit your changes (`git commit -m 'Add some feature'`)
-4. Push to the branch (`git push origin feature/YourFeature`)
-5. Open a Pull Request
-
-## 📄 License
+## 🤝 Contributing
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
