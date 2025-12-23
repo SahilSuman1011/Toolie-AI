@@ -62,23 +62,23 @@ const BlogTitles = () => {
     }
 
   return (
-     <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 text-slate-700'>
+     <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 bg-slate-900'>
             {/* Left Col*/}
-            <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
+            <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 backdrop-blur-sm'>
               <div className='flex items-center gap-3'>
-                <Sparkles className='w-6 text-[#4158D0]'/>
-                <h1 className='text-xl font-semibold'>AI Title Generator</h1>
+                <Sparkles className='w-6 text-cyan-400'/>
+                <h1 className='text-xl font-semibold text-white'>AI Title Generator</h1>
               </div>
-              <p className='mt-6 text-sm font-medium'>Keyword</p>
+              <p className='mt-6 text-sm font-medium text-slate-300'>Keyword</p>
     
-              <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300'
+              <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-cyan-500 transition-colors'
               placeholder='The Future of Artificial Intelligence is ....' required/>
-              <p className='mt-4 text-sm font-medium'>Category</p>
+              <p className='mt-4 text-sm font-medium text-slate-300'>Category</p>
     
               <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
                 {blogCategories.map((item) => (
                   <span onClick={() => setSelectedCategory(item)} 
-                  className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedCategory === item ? 'bg-purple-50 text-purple-700 border-purple-300' : 'text-gray-500 border-gray-300'}`}
+                  className={`text-xs px-4 py-1.5 border rounded-full cursor-pointer transition-all ${selectedCategory === item ? 'bg-cyan-600 text-white border-cyan-500 shadow-lg shadow-cyan-500/20' : 'text-slate-400 border-slate-600 hover:border-cyan-500/50'}`}
                   key={item}>{item}</span>
                 ))}
               </div>
@@ -86,8 +86,8 @@ const BlogTitles = () => {
               <div>
                 <br/>
                 <button disabled={loading} className='w-full flex justify-center items-center gap-2
-                bg-gradient-to-r from-[#4158D0] to-[#C850C0] text-white px-4 py-2 mt-6
-                text-sm rounded-lg cursor-pointer'>
+                bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white px-4 py-2 mt-6
+                text-sm rounded-lg cursor-pointer shadow-lg shadow-cyan-500/20 transition-all disabled:opacity-50'>
                   {loading ? <span className='w-4 h-4 my-1 rounded-full 
                   border-2 border-t-transparent animate-spin'></span> : <Hash className='w-5'/>}
                   Generate Titles
@@ -97,36 +97,36 @@ const BlogTitles = () => {
     
             </form>
             {/* Right Col */}
-            <div className='w-full lg:flex-1 lg:max-w-lg p-4 bg-white rounded-lg flex flex-col border
-            border-gray-200 min-h-96'>
+            <div className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl flex flex-col border
+            border-slate-700/50 backdrop-blur-sm min-h-96'>
               <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
-                  <Hash className='w-5 h-5 text-[#4158D0]'/>
-                  <h1 className='text-xl font-semibold'>Generated Titles</h1>
+                  <Hash className='w-5 h-5 text-cyan-400'/>
+                  <h1 className='text-xl font-semibold text-white'>Generated Titles</h1>
                 </div>
                 <button
                   onClick={handleCopy}
                   disabled={!content}
-                  className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+                  className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-slate-700 cursor-pointer' : 'cursor-not-allowed'}`}
                   title={content ? 'Copy to clipboard' : 'Generate titles first'}
                 >
                   {copied ? (
-                    <Check className='w-5 h-5 text-green-500' />
+                    <Check className='w-5 h-5 text-emerald-500' />
                   ) : (
-                    <Copy className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+                    <Copy className={`w-5 h-5 ${content ? 'text-slate-400 hover:text-cyan-400' : 'text-slate-600'}`} />
                   )}
                 </button>
               </div>
             {
               !content ? (
               <div className='flex-1 flex justify-center items-center'>
-              <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
+              <div className='text-sm flex flex-col items-center gap-5 text-slate-500'>
               <Hash className='w-9 h-9'/>
               <p>Enter a topic and click "Generate Title" to get started</p>
               </div>
             </div>
               ) : (
-              <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
+              <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-300 prose prose-invert prose-sm max-w-none'>
               <div className='.reset-tw'>
               <Markdown>{content}</Markdown> 
               </div>

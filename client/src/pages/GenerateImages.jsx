@@ -63,24 +63,24 @@ const GenerateImages = () => {
       }
 
   return (
-     <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 text-slate-700'>
+     <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 bg-slate-900'>
             {/* Left Col*/}
-            <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
+            <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 backdrop-blur-sm'>
               <div className='flex items-center gap-3'>
-                <Sparkles className='w-6 text-[#43E97B]'/>
-                <h1 className='text-xl font-semibold'>AI Image Generator</h1>
+                <Sparkles className='w-6 text-amber-400'/>
+                <h1 className='text-xl font-semibold text-white'>AI Image Generator</h1>
               </div>
-              <p className='mt-6 text-sm font-medium'>Describe Your Image</p>
+              <p className='mt-6 text-sm font-medium text-slate-300'>Describe Your Image</p>
     
-              <textarea onChange={(e)=>setInput(e.target.value)} value={input} rows={4} type="text" className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300'
+              <textarea onChange={(e)=>setInput(e.target.value)} value={input} rows={4} type="text" className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-slate-600 bg-slate-900/50 text-white placeholder:text-slate-500 focus:border-amber-500 transition-colors'
               placeholder='Describe what you want to see in the image....' required/>
               
-              <p className='mt-4 text-sm font-medium'>Style</p>
+              <p className='mt-4 text-sm font-medium text-slate-300'>Style</p>
     
               <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
                 {imageStyle.map((item) => (
                   <span onClick={() => setSelectedStyle(item)} 
-                  className={`text-xs px-4 py-1 border rounded-full cursor-pointer ${selectedStyle === item ? 'bg-green-50 text-green-700 border-green-300' : 'text-gray-500 border-gray-300'}`}
+                  className={`text-xs px-4 py-1.5 border rounded-full cursor-pointer transition-all ${selectedStyle === item ? 'bg-amber-600 text-white border-amber-500 shadow-lg shadow-amber-500/20' : 'text-slate-400 border-slate-600 hover:border-amber-500/50'}`}
                   key={item}>{item}</span>
                 ))}
               </div>
@@ -90,20 +90,20 @@ const GenerateImages = () => {
                   <input type='checkbox' onChange={(e)=>setPublish(e.target.checked)}
                   checked={publish} className='sr-only peer'/>
 
-                  <div className='w-9 h-5 bg-slate-300 rounded-full
-                  peer-checked:bg-[#43E97B] transition'></div>
+                  <div className='w-9 h-5 bg-slate-700 rounded-full
+                  peer-checked:bg-emerald-600 transition'></div>
 
                   <span className='absolute left-1 top-1 w-3 h-3 bg-white
                   rounded-full transition peer-checked:translate-x-4'></span>
                 </label>
 
-                <p className='text-sm'>Make this image Public</p>
+                <p className='text-sm text-slate-300'>Make this image Public</p>
 
               </div>
   
                 <button disabled={loading} className='w-full flex justify-center items-center gap-2
-                bg-gradient-to-r from-[#43E97B] to-[#38F9D7] text-white px-4 py-2 mt-6
-                text-sm rounded-lg cursor-pointer'>
+                bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-4 py-2 mt-6
+                text-sm rounded-lg cursor-pointer shadow-lg shadow-amber-500/20 transition-all disabled:opacity-50'>
                   {
                   loading ? <span className='w-4 h-4 my-1 rounded-full border-2
                   border-t-transparent animate-spin'></span>
@@ -113,26 +113,26 @@ const GenerateImages = () => {
     
             </form>
             {/* Right Col */}
-            <div className='flex-1 max-w-lg p-4 bg-white rounded-lg flex flex-col border
-            border-gray-200 min-h-96'>
+            <div className='flex-1 max-w-lg p-6 bg-slate-800/50 rounded-xl flex flex-col border
+            border-slate-700/50 backdrop-blur-sm min-h-96'>
               <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
-                  <Image className='w-5 h-5 text-[#43E97B]'/>
-                  <h1 className='text-xl font-semibold'>Generated Image</h1>
+                  <Image className='w-5 h-5 text-amber-400'/>
+                  <h1 className='text-xl font-semibold text-white'>Generated Image</h1>
                 </div>
                 <button
                   onClick={handleDownload}
                   disabled={!content}
-                  className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed'}`}
+                  className={`p-2 rounded-full transition-colors ${content ? 'hover:bg-slate-700 cursor-pointer' : 'cursor-not-allowed'}`}
                   title={content ? 'Download generated image' : 'Generate an image first'}
                 >
-                  <Download className={`w-5 h-5 ${content ? 'text-gray-500 hover:text-gray-700' : 'text-gray-300'}`} />
+                  <Download className={`w-5 h-5 ${content ? 'text-slate-400 hover:text-amber-400' : 'text-slate-600'}`} />
                 </button>
               </div>
 
               {!content ? (
                 <div className='flex-1 flex justify-center items-center'>
-                  <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
+                  <div className='text-sm flex flex-col items-center gap-5 text-slate-500'>
                     <Image className='w-9 h-9'/>
                     <p>Enter a topic and click "Generate Image" to get started</p>
                   </div>

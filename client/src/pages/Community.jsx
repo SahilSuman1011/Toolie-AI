@@ -57,9 +57,9 @@ const Community = () => {
   }, [user])
   
   return !loading ? (
-    <div className='flex-1 h-full flex flex-col gap-4 p-6 text-xl font-semibold'>
-      Creations
-      <div className='bg-white h-full w-full rounded-xl overflow-y-scroll'>
+    <div className='flex-1 h-full flex flex-col gap-4 p-6 bg-slate-900'>
+      <h1 className='text-2xl font-semibold text-white'>Community Creations</h1>
+      <div className='bg-slate-800/50 h-full w-full rounded-xl overflow-y-scroll border border-slate-700/50 backdrop-blur-sm'>
         {creations.map((creation, index) => (
           <div key={index} className='relative group inline-block pl-3 pt-3 w-full
           sm:max-w-1/2 lg:max-w-1/3'>
@@ -81,9 +81,9 @@ const Community = () => {
       </div>
     </div>
   ) : (
-    <div className='flex justify-center items-center h-full'>
-      <span className='w-10 h-10 my-1 rounded-full border-3 
-      border-primary border-t-transparent animate-spin'></span>
+    <div className='flex justify-center items-center h-full bg-slate-900'>
+      <span className='w-12 h-12 my-1 rounded-full border-4 
+      border-emerald-500 border-t-transparent animate-spin shadow-lg shadow-emerald-500/20'></span>
     </div>
   )
 }
