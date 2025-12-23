@@ -3,7 +3,7 @@ import {PricingTable} from '@clerk/clerk-react'
 
 const Plan = () => {
   return (
-    <div className='max-w-2xl mx-auto z-20 my-10'>
+    <div className='max-w-2xl mx-auto z-20 my-8'>
 
         <div className='text-center'>
             <h2 className='text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4'>Choose Your Plan</h2>

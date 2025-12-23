@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, Sparkles, Zap, BarChart3, X, Play } from 'lucide-react'
-import LogoScroller from './LogoScroller.jsx'
 
 const Hero = () => {
   const navigate = useNavigate()
@@ -22,7 +21,7 @@ const Hero = () => {
   return (
     // FIX 1: Changed 'lg:min-h-screen' to 'xl:min-h-screen'. 
     // This ensures tablets (md/lg) use 'h-auto' and don't stretch nicely to 1300px+ height.
-    <div className='relative flex flex-col items-center w-full h-auto xl:min-h-screen overflow-hidden bg-white pt-24 pb-8 md:pt-28 md:pb-12 xl:pt-36 xl:pb-20'>
+    <div className='relative flex flex-col items-center w-full h-auto xl:min-h-screen overflow-hidden bg-white pt-24 pb-6 md:pt-28 md:pb-8 xl:pt-36 xl:pb-12'>
       
       {/* --- ANIMATED BACKGROUND --- */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
@@ -145,10 +144,6 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* FIX 2: Reduced margin-top on tablet (md:mt-10) to pull logos closer */}
-        <div className="mt-8 md:mt-10 xl:mt-16 w-full max-w-full overflow-hidden">
-            <LogoScroller/>
-        </div>
 {/* Video Modal */}
       {showVideo && (
         <div 

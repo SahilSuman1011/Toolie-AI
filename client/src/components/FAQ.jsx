@@ -32,7 +32,7 @@ const FAQ = () => {
     }
 
     return (
-        <div className="py-10 px-3 sm:px-6 lg:px-8 bg-white w-full overflow-hidden">
+        <div className="py-8 px-3 sm:px-6 lg:px-8 bg-white w-full overflow-hidden">
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-xl mb-6">

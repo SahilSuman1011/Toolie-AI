@@ -74,7 +74,7 @@ const AiTools = () => {
   const { user } = useUser()
 
   return (
-    <section className='relative py-8 sm:py-12 px-3 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/30 to-white overflow-hidden'>
+    <section className='relative py-6 sm:py-10 px-3 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/30 to-white overflow-hidden'>
       <div className='max-w-7xl mx-auto'>
         {/* Section Header */}
         <div className='text-center mb-10'>
