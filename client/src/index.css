@@ -57,3 +57,24 @@
 .animate-marquee-reverse {
     animation: marquee-reverse 40s linear infinite;
 }
+
+/* Beam animations */
+@keyframes beam {
+    to {
+        stroke-dashoffset: -40;
+    }
+}
+
+@keyframes beam-reverse {
+    to {
+        stroke-dashoffset: 40;
+    }
+}
+
+.animate-beam {
+    animation: beam 3s linear infinite;
+}
+
+.animate-beam-reverse {
+    animation: beam-reverse 3s linear infinite;
+}
