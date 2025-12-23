@@ -23,7 +23,12 @@ const Layout = () => {
 
       <nav className='w-full px-8 min-h-14 flex items-center justify-between 
       border-b border-gray-200'>
-        <img src={assets.logo} className='w-32 sm:w-44 cursor-pointer' alt="Logo" onClick={() => {navigate('/')}} />
+         <div className='flex items-center gap-2 cursor-pointer' onClick={() => navigate('/')}>
+                <img src={assets.tool} alt='logo' className='w-4 h-10 sm:w-12'/>
+              <h3 className="relative z-10 text-2xl font-bold text-white mb-2 text-center">
+                Toolie<span className='text-blue-500'> AI</span>
+              </h3>
+         </div>
         {
           sidebar ? <X onClick={() => setSidebar(false)} className='w-6 h-6 text-gray-600 sm:hidden'/>
           : <Menu onClick={() => setSidebar(true)} className='w-6 h-6 text-gray-600 sm:hidden'/>
