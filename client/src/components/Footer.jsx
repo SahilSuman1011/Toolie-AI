@@ -16,8 +16,8 @@ export default function Example() {
             <footer className="flex flex-col items-center justify-around w-full py-6 px-3 text-xs sm:text-sm bg-slate-900 text-slate-400">
 
             <div className='flex items-center gap-2'>
-            <img src={assets.tool} alt='logo' className='w-4 h-10 sm:w-12 cursor-pointer'/>
-            <h3 className="relative z-10 text-2xl font-bold text-white mb-2 text-center">
+            <img src={assets.tool} alt='logo' className='w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 cursor-pointer object-contain'/>
+            <h3 className="relative z-10 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 text-center">
             Toolie<span className='text-blue-500'> AI</span>
             </h3>
             </div>

@@ -7,40 +7,40 @@ import tool from '../assets/tool.png'
 
 const CenterCard = () => {
   return (
-    <div className="group relative h-full bg-gradient-to-br from-emerald-900/20 via-cyan-900/20 to-amber-900/20 rounded-2xl overflow-hidden border border-emerald-500/30 backdrop-blur-sm p-6 flex flex-col items-center justify-center">
+    <div className="group relative h-full bg-gradient-to-br from-emerald-900/20 via-cyan-900/20 to-amber-900/20 rounded-2xl overflow-hidden border border-emerald-500/30 backdrop-blur-sm p-2 sm:p-8 md:p-10 flex flex-col items-center justify-center">
       {/* Animated Gradient Orbs */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-20 h-20 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-0 right-0 w-24 h-24 bg-cyan-500/20 rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="absolute top-0 left-0 w-10 h-10 sm:w-24 sm:h-24 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-0 right-0 w-12 h-12 sm:w-28 sm:h-28 bg-cyan-500/20 rounded-full blur-3xl animate-float-delayed"></div>
       </div>
       
       {/* Logo */}
-      <div className="relative z-10 mb-4">
+      <div className="relative z-10 mb-1 sm:mb-4 md:mb-5">
         <img 
           src={tool} 
           alt="Toolie AI Logo" 
-          className="w-20 h-20 object-contain group-hover:scale-110 transition-transform duration-500"
+          className="w-6 h-6 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-500"
         />
       </div>
       
       {/* Title */}
-      <h3 className="relative z-10 text-2xl font-bold text-white mb-2 text-center">
+      <h3 className="relative z-10 text-xs sm:text-2xl md:text-3xl font-bold text-white mb-0.5 sm:mb-3 text-center leading-tight">
         Toolie<span className='text-blue-500'> AI</span>
       </h3>
       
       {/* Subtitle */}
-      <p className="relative z-10 text-emerald-300 text-sm mb-4 text-center">
+      <p className="relative z-10 text-emerald-300 text-[8px] sm:text-base mb-1 sm:mb-5 md:mb-6 text-center leading-tight">
         Your Ultimate AI Toolbox
       </p>
       
       {/* Stats */}
-      <div className="relative z-10 flex gap-5">
+      <div className="relative z-10 flex gap-1.5 sm:gap-6">
         <div className="text-center">
-          <div className="flex items-center gap-1 text-white font-bold text-lg mb-1">
-            <Sparkles className="w-4 h-4 text-amber-400" />
+          <div className="flex items-center gap-0.5 sm:gap-1 text-white font-bold text-[10px] sm:text-xl mb-0 sm:mb-1">
+            <Sparkles className="w-2 h-2 sm:w-5 sm:h-5 text-amber-400" />
             6+
           </div>
-          <div className="text-slate-400 text-xs">AI Tools</div>
+          <div className="text-slate-400 text-[8px] sm:text-sm leading-tight">AI Tools</div>
         </div>
        
       </div>
@@ -184,15 +184,17 @@ const AiTools = () => {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-[200px]'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-[minmax(220px,auto)]'>
           {/* Top Left - AI Article Writer */}
-          <ToolCard
-            tool={AiToolsData[0]}
-            onClick={() => user && navigate(AiToolsData[0].path)}
-          />
+          <div className="min-h-[220px]">
+            <ToolCard
+              tool={AiToolsData[0]}
+              onClick={() => user && navigate(AiToolsData[0].path)}
+            />
+          </div>
           
           {/* Top Row Spanning 2 columns - Blog Title */}
-          <div className="sm:col-span-2">
+          <div className="md:col-span-2 lg:col-span-2 min-h-[220px]">
             <ToolCard
               tool={AiToolsData[1]}
               onClick={() => user && navigate(AiToolsData[1].path)}
@@ -200,13 +202,15 @@ const AiTools = () => {
           </div>
 
           {/* Top Right - AI Image Generation */}
-          <ToolCard
-            tool={AiToolsData[2]}
-            onClick={() => user && navigate(AiToolsData[2].path)}
-          />
+          <div className="min-h-[220px]">
+            <ToolCard
+              tool={AiToolsData[2]}
+              onClick={() => user && navigate(AiToolsData[2].path)}
+            />
+          </div>
 
           {/* Middle Left - Background Removal */}
-          <div className="sm:row-span-2 h-full">
+          <div className="md:row-span-2 h-full min-h-[220px]">
             <ToolCard
               tool={AiToolsData[3]}
               onClick={() => user && navigate(AiToolsData[3].path)}
@@ -214,12 +218,12 @@ const AiTools = () => {
           </div>
 
           {/* Center Large Card - 2x2 */}
-          <div className="sm:col-span-2 sm:row-span-2">
+          <div className="md:col-span-2 lg:col-span-2 md:row-span-2 min-h-[180px] md:min-h-[440px]">
             <CenterCard />
           </div>
 
           {/* Middle Right - Object Removal */}
-          <div className="sm:row-span-2 h-full">
+          <div className="md:row-span-2 h-full min-h-[220px]">
             <ToolCard
               tool={AiToolsData[4]}
               onClick={() => user && navigate(AiToolsData[4].path)}
@@ -227,46 +231,48 @@ const AiTools = () => {
           </div>
 
           {/* Bottom Left - LinkedIn Optimizer */}
-          <ToolCard
-            tool={AiToolsData[5]}
-            onClick={() => user && navigate(AiToolsData[5].path)}
-          />
+          <div className="min-h-[220px]">
+            <ToolCard
+              tool={AiToolsData[5]}
+              onClick={() => user && navigate(AiToolsData[5].path)}
+            />
+          </div>
 
           {/* Bottom Center spanning 2 */}
-          <div className="sm:col-span-2">
-            <div className="h-full flex items-center justify-center bg-slate-800/30 rounded-2xl border border-slate-700/40 backdrop-blur-sm p-6">
+          <div className="md:col-span-2 lg:col-span-2 min-h-[150px]">
+            <div className="h-full flex items-center justify-center bg-slate-800/30 rounded-2xl border border-slate-700/40 backdrop-blur-sm p-4 md:p-6">
               <div className="text-center">
-                <Zap className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
-                <p className="text-slate-300 font-semibold">More AI Tools Coming Soon!</p>
+                <Zap className="w-6 h-6 md:w-8 md:h-8 text-emerald-400 mx-auto mb-2 md:mb-3" />
+                <p className="text-slate-300 font-semibold text-sm md:text-base">More AI Tools Coming Soon!</p>
               </div>
             </div>
           </div>
 
           {/* Bottom Right - Open Source Card */}
-          <div className="group relative h-full bg-gradient-to-br from-purple-900/20 via-pink-900/20 to-rose-900/20 rounded-2xl overflow-hidden border border-purple-500/30 backdrop-blur-sm p-6 flex flex-col items-center justify-center hover:border-purple-400/50 transition-all duration-500">
+          <div className="group relative h-full min-h-[200px] bg-gradient-to-br from-purple-900/20 via-pink-900/20 to-rose-900/20 rounded-2xl overflow-hidden border border-purple-500/30 backdrop-blur-sm p-4 md:p-6 flex flex-col items-center justify-center hover:border-purple-400/50 transition-all duration-500">
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
-              <div className="absolute bottom-0 left-0 w-20 h-20 bg-pink-500/10 rounded-full blur-2xl"></div>
+              <div className="absolute top-0 right-0 w-20 h-20 md:w-24 md:h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 md:w-20 md:h-20 bg-pink-500/10 rounded-full blur-2xl"></div>
             </div>
             
             <div className="relative z-10 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-400/30 mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Github className="w-6 h-6 text-purple-300" />
+              <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl bg-purple-500/20 border border-purple-400/30 mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Github className="w-5 h-5 md:w-6 md:h-6 text-purple-300" />
               </div>
               
-              <h3 className="text-base font-semibold text-white mb-2">
+              <h3 className="text-sm md:text-base font-semibold text-white mb-2">
                 Open Source
               </h3>
               
-              <p className="text-slate-400 text-xs mb-4 leading-relaxed">
+              <p className="text-slate-400 text-xs mb-3 md:mb-4 leading-relaxed">
                 Join our community and help build the future of AI tools
               </p>
               
               <button 
                 onClick={() => window.open('https://github.com/SahilSuman1011/Toolie-AI', '_blank')}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-purple-500/25"
+                className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-purple-600 hover:bg-purple-700 hover:cursor-pointer text-white text-xs md:text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-purple-500/25"
               >
-                <Heart className="w-4 h-4" />
+                <Heart className="w-3 h-3 md:w-4 md:h-4" />
                 Contribute
               </button>
             </div>
