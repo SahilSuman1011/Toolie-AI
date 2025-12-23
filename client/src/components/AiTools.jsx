@@ -15,16 +15,16 @@ const CenterCard = () => {
       </div>
       
       {/* Logo */}
-      <div className="relative z-10 mb-1 sm:mb-4 md:mb-5">
+      <div className="relative z-10 mb-1.5 sm:mb-4 md:mb-5">
         <img 
           src={tool} 
           alt="Toolie AI Logo" 
-          className="w-6 h-6 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-500"
+          className="w-8 h-8 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-500"
         />
       </div>
       
       {/* Title */}
-      <h3 className="relative z-10 text-xs sm:text-2xl md:text-3xl font-bold text-white mb-0.5 sm:mb-3 text-center leading-tight">
+      <h3 className="relative z-10 text-sm sm:text-2xl md:text-3xl font-bold text-white mb-0.5 sm:mb-3 text-center leading-tight">
         Toolie<span className='text-blue-500'> AI</span>
       </h3>
       
@@ -34,7 +34,7 @@ const CenterCard = () => {
       </p>
       
       {/* Stats */}
-      <div className="relative z-10 flex gap-1.5 sm:gap-6">
+      <div className="relative z-10 flex gap-2 sm:gap-6">
         <div className="text-center">
           <div className="flex items-center gap-0.5 sm:gap-1 text-white font-bold text-[10px] sm:text-xl mb-0 sm:mb-1">
             <Sparkles className="w-2 h-2 sm:w-5 sm:h-5 text-amber-400" />
