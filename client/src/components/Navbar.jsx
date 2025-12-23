@@ -30,21 +30,23 @@ const Navbar = () => {
     }, [])
 
   return (
-    <div className={`fixed z-50 w-full backdrop-blur-2xl flex justify-between items-center h-18 px-4 sm:px-16 xl:px-28 transition-opacity duration-200 ${hideNavbar ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-        <img src={assets.TAI} alt='logo' className='w-36 h-42 sm:w-36 cursor-pointer pt-8' onClick={() => {
-            navigate('/')
-        }}/>
+    <div className={`fixed z-50 w-full backdrop-blur-2xl bg-slate-900/70 flex justify-between items-center h-12 px-4 sm:px-16 xl:px-28 transition-all duration-300 border-b border-slate-800/50 ${hideNavbar ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className='flex items-center gap-2'>
+          <img src={assets.tool} alt='logo' className='w-4 h-10 sm:w-12 cursor-pointer' onClick={() => {
+              navigate('/')
+          }}/>
+      <h3 className="relative z-10 text-2xl font-bold text-white mb-2 text-center">
+        Toolie<span className='text-blue-500'> AI</span>
+      </h3>
+        </div>
 
-        {
-        user ? <UserButton /> 
-  :
-  (
-  <button onClick={openSignIn} className='flex items-center gap-2 rounded-full text-sm
-  cursor-pointer hover:scale-102 active:scale-95 transition bg-[#2F80ED] text-white px-4 py-1.5'>
-        Get Started <ArrowRight className='w-4 h-4'/> 
-        </button>
-        )
-        }
+        {user ? (
+          <UserButton />
+        ) : (
+          <button onClick={openSignIn} className='flex items-center gap-2 rounded-full text-sm cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 shadow-sm hover:shadow-md'>
+            Get Started <ArrowRight className='w-4 h-4'/> 
+          </button>
+        )}
 
     </div>
   )

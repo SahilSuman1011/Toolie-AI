@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState, useRef } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 
 export const AnimatedBeam = ({
   containerRef,
