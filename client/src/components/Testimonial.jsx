@@ -24,25 +24,25 @@ const reviews = [
 
 const ReviewCard = ({ img, name, username, body }) => {
     return (
-        <div className="relative w-80 flex-shrink-0 cursor-pointer overflow-hidden rounded-3xl border border-slate-200/60 bg-white p-6 hover:shadow-lg transition-shadow duration-300">
+        <div className="relative w-80 flex-shrink-0 cursor-pointer overflow-hidden rounded-3xl border border-slate-200/60 dark:border-slate-700/60 bg-white dark:bg-slate-800 p-6 hover:shadow-lg dark:hover:shadow-teal-500/10 transition-shadow duration-300">
             <div className="flex items-center gap-4 mb-4">
-                <img className="w-12 h-12 rounded-full object-cover ring-2 ring-white" src={img} alt={name} />
+                <img className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-slate-700" src={img} alt={name} />
                 <div>
-                    <h3 className="font-semibold text-slate-900 flex items-center gap-2">
+                    <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                         {name}
-                        <span className="text-blue-500" title="Verified">
+                        <span className="text-teal-500 dark:text-teal-400" title="Verified">
                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                             </svg>
                         </span>
                     </h3>
-                    <p className="text-sm text-slate-500">{username}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">{username}</p>
                 </div>
             </div>
-            <svg className="w-8 h-8 text-blue-500 mb-3 opacity-50" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 text-teal-500 dark:text-teal-400 mb-3 opacity-50" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z"/>
             </svg>
-            <p className="text-slate-700 text-base leading-relaxed">{body}</p>
+            <p className="text-slate-700 dark:text-slate-300 text-base leading-relaxed">{body}</p>
         </div>
     )
 }
@@ -54,11 +54,11 @@ export default function Testimonial() {
                 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
                 * { font-family: 'Poppins', sans-serif; }
             `}</style>
-            <section className="py-8 sm:py-12 px-3 sm:px-6 lg:px-8 bg-white overflow-hidden">
+            <section className="py-8 sm:py-12 px-3 sm:px-6 lg:px-8 bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-300">
                 <div className="max-w-7xl mx-auto">
                     {/* Header */}
                     <div className="flex flex-col items-center text-center mb-12">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-sm font-medium mb-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-900/30 border border-teal-100 dark:border-teal-700/60 text-teal-600 dark:text-teal-300 text-sm font-medium mb-6">
                              <svg width="14" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M2.5 8.5c-.8 0-1.5-.7-1.5-1.5V3c0-.8.7-1.5 1.5-1.5h3c.8 0 1.5.7 1.5 1.5v2.5" />
                                 <path d="M8.5 8.5c-.8 0-1.5-.7-1.5-1.5V3c0-.8.7-1.5 1.5-1.5h3c.8 0 1.5.7 1.5 1.5v2.5" />
@@ -67,10 +67,10 @@ export default function Testimonial() {
                             </svg>
                             User Stories
                         </div>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-4 px-2">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-4 px-2">
                             Loved by builders everywhere.
                         </h2>
-                        <p className="text-base sm:text-lg text-slate-500 max-w-2xl px-4">
+                        <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 max-w-2xl px-4">
                             Don't just take our word for it. Here is what the community has to say about Toolie AI.
                         </p>
                     </div>
@@ -89,8 +89,8 @@ export default function Testimonial() {
                         </Marquee>
                         
                         {/* Gradient overlays */}
-                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/12 bg-gradient-to-r from-white to-transparent"></div>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/12 bg-gradient-to-l from-white to-transparent"></div>
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/12 bg-gradient-to-r from-white dark:from-slate-900 to-transparent"></div>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/12 bg-gradient-to-l from-white dark:from-slate-900 to-transparent"></div>
                     </div>
                 </div>
             </section>
