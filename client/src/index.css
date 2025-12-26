@@ -15,6 +15,16 @@ html, body {
     color: #e2e8f0; /* slate-200 */
 }
 
+/* Hide scrollbar for mobile testimonial scroll */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+
 @theme{
     --color-primary: #10b981;
 }
