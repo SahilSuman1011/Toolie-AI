@@ -12,9 +12,23 @@ import { ClerkProvider } from '@clerk/clerk-react'
     throw new Error('Add your Clerk Publishable Key to the .env file')
   }
 
-// Add dark class to root element
+// Enforce dark mode globally and permanently
 if (typeof document !== 'undefined') {
+  // Add dark class to html element
   document.documentElement.classList.add('dark');
+  // Lock dark mode in localStorage
+  localStorage.setItem('toolie-theme', 'dark');
+  
+  // Prevent any attempt to remove dark mode
+  const observer = new MutationObserver(() => {
+    if (!document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.add('dark');
+    }
+  });
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
 }
 
 createRoot(document.getElementById('root')).render(

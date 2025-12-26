@@ -7,40 +7,40 @@ import tool from '../assets/tool.png'
 
 const CenterCard = () => {
   return (
-    <div className="group relative h-full bg-gradient-to-br from-emerald-900/20 via-cyan-900/20 to-amber-900/20 rounded-2xl overflow-hidden border border-emerald-500/30 backdrop-blur-sm p-2 sm:p-8 md:p-10 flex flex-col items-center justify-center">
+    <div className="group relative h-full bg-gradient-to-br from-emerald-900/20 via-cyan-900/20 to-amber-900/20 rounded-2xl overflow-hidden border border-emerald-500/30 backdrop-blur-sm p-3 sm:p-8 md:p-10 flex flex-col items-center justify-center">
       {/* Animated Gradient Orbs */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-10 h-10 sm:w-24 sm:h-24 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-0 right-0 w-12 h-12 sm:w-28 sm:h-28 bg-cyan-500/20 rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="absolute top-0 left-0 w-12 h-12 sm:w-24 sm:h-24 bg-emerald-500/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-0 right-0 w-16 h-16 sm:w-28 sm:h-28 bg-cyan-500/20 rounded-full blur-3xl animate-float-delayed"></div>
       </div>
       
       {/* Logo */}
-      <div className="relative z-10 mb-1.5 sm:mb-4 md:mb-5">
+      <div className="relative z-10 mb-2 sm:mb-4 md:mb-5">
         <img 
           src={tool} 
           alt="Toolie AI Logo" 
-          className="w-10 h-10 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-500"
+          className="w-12 h-12 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain group-hover:scale-110 transition-transform duration-500"
         />
       </div>
       
       {/* Title */}
-      <h3 className="relative z-10 text-sm sm:text-2xl md:text-3xl font-bold text-white mb-0.5 sm:mb-3 text-center leading-tight">
+      <h3 className="relative z-10 text-base sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-3 text-center leading-tight">
         Toolie<span className='text-blue-500'> AI</span>
       </h3>
       
       {/* Subtitle */}
-      <p className="relative z-10 text-emerald-300 text-[8px] sm:text-base mb-1 sm:mb-5 md:mb-6 text-center leading-tight">
+      <p className="relative z-10 text-emerald-300 text-xs sm:text-base mb-2 sm:mb-5 md:mb-6 text-center leading-tight">
         Your Ultimate AI Toolbox
       </p>
       
       {/* Stats */}
       <div className="relative z-10 flex gap-2 sm:gap-6">
         <div className="text-center">
-          <div className="flex items-center gap-0.5 sm:gap-1 text-white font-bold text-[10px] sm:text-xl mb-0 sm:mb-1">
-            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
+          <div className="flex items-center gap-1 sm:gap-1 text-white font-bold text-sm sm:text-xl mb-0.5 sm:mb-1">
+            <Sparkles className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-amber-400" />
             6+
           </div>
-          <div className="text-slate-400 text-[8px] sm:text-sm leading-tight">AI Tools</div>
+          <div className="text-slate-400 text-[10px] sm:text-sm leading-tight">AI Tools</div>
         </div>
        
       </div>

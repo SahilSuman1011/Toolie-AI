@@ -5,6 +5,16 @@
     font-family: "Outfit", sans-serif;
 }
 
+/* FORCE DARK MODE ONLY - Lock to dark theme permanently */
+html {
+    color-scheme: dark;
+}
+
+html, body {
+    background-color: #0f172a; /* slate-900 */
+    color: #e2e8f0; /* slate-200 */
+}
+
 @theme{
     --color-primary: #10b981;
 }

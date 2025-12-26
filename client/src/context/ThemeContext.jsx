@@ -11,23 +11,18 @@ export const useTheme = () => {
 }
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('toolie-theme')
-    return savedTheme || 'light'
-  })
+  // LOCKED TO DARK MODE ONLY - Do not change
+  const [theme] = useState('dark')
 
   useEffect(() => {
-    const root = document.documentElement
-    if (theme === 'dark') {
-      root.classList.add('dark')
-    } else {
-      root.classList.remove('dark')
-    }
-    localStorage.setItem('toolie-theme', theme)
-  }, [theme])
+    // Force dark mode always
+    document.documentElement.classList.add('dark')
+    localStorage.setItem('toolie-theme', 'dark')
+  }, [])
 
+  // Disabled theme toggle - always returns dark mode
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light')
+    console.warn('Theme toggle is disabled. App is locked to dark mode only.')
   }
 
   return (
