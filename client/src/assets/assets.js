@@ -30,42 +30,48 @@ export const AiToolsData = [
         description: 'Generate high-quality, engaging articles on any topic with our AI writing technology.',
         Icon: SquarePen,
         bg: { from: '#FF6B6B', to: '#FF8E53' }, // Warm red to orange
-        path: '/ai/write-article'
+        path: '/ai/write-article',
+        premium: false
     },
     {
         title: 'Blog Title Generator',
         description: 'Find the perfect, catchy title for your blog posts with our AI-powered generator.',
         Icon: Hash,
         bg: { from: '#4158D0', to: '#C850C0' }, // Deep blue to purple
-        path: '/ai/blog-titles'
+        path: '/ai/blog-titles',
+        premium: false
     },
     {
         title: 'AI Image Generation',
         description: 'Create stunning visuals with our AI image generation tool, Experience the power of AI ',
         Icon: Image,
         bg: { from: '#43E97B', to: '#38F9D7' }, // Green to turquoise
-        path: '/ai/generate-images'
+        path: '/ai/generate-images',
+        premium: true
     },
     {
         title: 'Background Removal',
         description: 'Effortlessly remove backgrounds from your images with our AI-driven tool.',
         Icon: Eraser,
         bg: { from: '#FA8BFF', to: '#2BD2FF' }, // Pink to cyan
-        path: '/ai/remove-background'
+        path: '/ai/remove-background',
+        premium: true
     },
     {
         title: 'Object Removal',
         description: 'Remove unwanted objects from your images seamlessly with our AI object removal tool.',
         Icon: Scissors,
         bg: { from: '#8E2DE2', to: '#4A00E0' }, // Vibrant purple to electric blue
-        path: '/ai/remove-object'
+        path: '/ai/remove-object',
+        premium: true
     },
     {
         title: 'LinkedIn Optimizer',
         description: 'Enhance your LinkedIn profile with AI-powered optimization for better visibility and impact.',
         Icon: FileText,
         bg: { from: '#F7971E', to: '#FFD200' }, // Orange to yellow
-        path: '/ai/linkedin-optimizer'
+        path: '/ai/linkedin-optimizer',
+        premium: true
     }
 ]
 
