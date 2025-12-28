@@ -300,6 +300,14 @@ ${skills ? `## Key Skills & Expertise
         await sql` INSERT INTO creations (user_id, prompt, content, type)
             VALUES (${userId}, ${JSON.stringify({headline, about, experience, skills})}, ${content}, 'linkedin-optimize') `;
 
+        if(plan !== 'premium'){
+            await clerkClient.users.updateUserMetadata(userId, {
+                privateMetadata: {
+                    free_usage: free_usage + 1
+                }
+            })
+        }
+
         res.json({success: true, content})
 
     } catch(error) {
@@ -311,4 +319,3 @@ ${skills ? `## Key Skills & Expertise
         res.status(isRateLimitError ? 429 : 500).json({success: false, message})
     }
 }
-
