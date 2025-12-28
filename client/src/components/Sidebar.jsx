@@ -1,17 +1,17 @@
 import React from 'react'
 import {Protect, useClerk, useUser } from '@clerk/clerk-react';
-import { Eraser, FileText, Hash, House, Image, LogOut, Scissors, SquarePen, Users } from 'lucide-react';
+import { Eraser, FileText, Hash, House, Image, LogOut, Scissors, SquarePen, Users, Crown } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const navItems = [
-  {to : '/ai', label: 'Dashboard', Icon: House},
-  {to : '/ai/write-article', label: 'Write Article', Icon: SquarePen},
-  {to : '/ai/blog-titles', label: 'Blog Titles', Icon: Hash},
-  {to : '/ai/generate-images', label: 'Generate Images', Icon: Image},
-  {to : '/ai/remove-background', label: 'Remove Background', Icon: Eraser},
-  {to : '/ai/remove-object', label: 'Remove Object', Icon: Scissors},
-  {to : '/ai/linkedin-optimizer', label: 'LinkedIn Optimizer', Icon: FileText},
-  {to : '/ai/community', label: 'Community', Icon: Users},
+  {to : '/ai', label: 'Dashboard', Icon: House, premium: false},
+  {to : '/ai/write-article', label: 'Write Article', Icon: SquarePen, premium: false},
+  {to : '/ai/blog-titles', label: 'Blog Titles', Icon: Hash, premium: false},
+  {to : '/ai/generate-images', label: 'Generate Images', Icon: Image, premium: true},
+  {to : '/ai/remove-background', label: 'Remove Background', Icon: Eraser, premium: true},
+  {to : '/ai/remove-object', label: 'Remove Object', Icon: Scissors, premium: true},
+  {to : '/ai/linkedin-optimizer', label: 'LinkedIn Optimizer', Icon: FileText, premium: true},
+  {to : '/ai/community', label: 'Community', Icon: Users, premium: false},
 ]
 
 const Sidebar = ({sidebar, setSidebar}) => {
@@ -28,7 +28,7 @@ const Sidebar = ({sidebar, setSidebar}) => {
         <img src={user.imageUrl} alt='User Avatar' className='w-12 rounded-full mx-auto ring-2 ring-emerald-500/30'/>
         <h1 className='mt-2 text-center text-white font-semibold'>{user.fullName}</h1>
         <div className='px-4 mt-6 text-sm text-slate-300 font-medium space-y-1'>
-          {navItems.map(({to, label, Icon}) => (
+          {navItems.map(({to, label, Icon, premium}) => (
             <NavLink key={to} to={to} end={to === '/ai'} onClick={() => setSidebar(false)}
             className={({isActive})=> `px-3.5 py-2.5 flex items-center gap-3
             rounded-lg transition-all duration-200 ease-in-out hover:scale-[1.02] 
@@ -38,7 +38,10 @@ const Sidebar = ({sidebar, setSidebar}) => {
                 ({isActive}) => (
                   <>
                   <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`}/>
-                  {label}
+                  <span className="flex-1">{label}</span>
+                  {premium && (
+                    <Crown className={`w-3.5 h-3.5 ${isActive ? 'text-amber-300' : 'text-amber-500'}`} />
+                  )}
                   </>
                 )
               }

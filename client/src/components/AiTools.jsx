@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { AiToolsData } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react'
-import { ArrowRight, Zap, Users, Sparkles, Github, Heart } from 'lucide-react'
+import { ArrowRight, Zap, Users, Sparkles, Github, Heart, Crown } from 'lucide-react'
 import tool from '../assets/tool.png'
 
 const CenterCard = () => {
@@ -80,6 +80,16 @@ const ToolCard = ({ tool, onClick }) => {
       }`}
       style={{ transition: 'opacity 0.6s ease-out, transform 0.6s ease-out' }}
     >
+        {/* Premium Badge */}
+        {tool.premium && (
+          <div className="absolute top-3 right-3 z-10">
+            <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 backdrop-blur-sm">
+              <Crown className="w-3 h-3 text-amber-400" />
+              <span className="text-[10px] font-semibold text-amber-300">PRO</span>
+            </div>
+          </div>
+        )}
+        
         {/* Icon */}
         <div className="mb-4">
             <div 

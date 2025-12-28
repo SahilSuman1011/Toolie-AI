@@ -1,5 +1,5 @@
-import { Hash, Sparkles, Edit, HashIcon, Copy, Check } from 'lucide-react'
-import React, {useState} from 'react'
+import { Hash, Sparkles, Edit, HashIcon, Copy, Check, Clock } from 'lucide-react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
@@ -17,7 +17,30 @@ const BlogTitles = () => {
     const [loading, setLoading] = useState(false)
     const [content, setContent] = useState('')
     const [copied, setCopied] = useState(false)
+    const [recentTitles, setRecentTitles] = useState([])
     const {getToken} = useAuth()
+
+    // Load recent titles from localStorage on mount
+    useEffect(() => {
+      const stored = localStorage.getItem('recentBlogTitles')
+      if (stored) {
+        setRecentTitles(JSON.parse(stored))
+      }
+    }, [])
+
+    // Save to recent titles
+    const saveToRecent = (keyword, category, titles) => {
+      const newEntry = {
+        id: Date.now(),
+        keyword,
+        category,
+        titles,
+        timestamp: new Date().toISOString()
+      }
+      const updated = [newEntry, ...recentTitles].slice(0, 5) // Keep only 5 recent
+      setRecentTitles(updated)
+      localStorage.setItem('recentBlogTitles', JSON.stringify(updated))
+    }
 
     const handleCopy = async () => {
       try {
@@ -42,6 +65,7 @@ const BlogTitles = () => {
 
           if(data.success) {
             setContent(data.content)
+            saveToRecent(input, selectedCategory, data.content)
             toast.success('Titles generated successfully!')
           } else{
             toast.error(data.message)
@@ -62,7 +86,8 @@ const BlogTitles = () => {
     }
 
   return (
-     <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col lg:flex-row items-start gap-4 bg-slate-900'>
+     <div className='h-full overflow-y-scroll p-4 sm:p-6 flex flex-col gap-4 bg-slate-900'>
+        <div className='flex flex-col lg:flex-row items-start gap-4'>
             {/* Left Col*/}
             <form onSubmit={onSubmitHandler} className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 backdrop-blur-sm'>
               <div className='flex items-center gap-3'>
@@ -96,6 +121,7 @@ const BlogTitles = () => {
               </div>
     
             </form>
+            
             {/* Right Col */}
             <div className='w-full lg:flex-1 lg:max-w-lg p-6 bg-slate-800/50 rounded-xl flex flex-col border
             border-slate-700/50 backdrop-blur-sm min-h-96'>
@@ -127,14 +153,53 @@ const BlogTitles = () => {
             </div>
               ) : (
               <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-300 prose prose-invert prose-sm max-w-none'>
-              <div className='.reset-tw'>
-              <Markdown>{content}</Markdown> 
-              </div>
+              <Markdown>{content}</Markdown>
                 </div>
               )
             }
            
         </div>
+        </div>
+
+        {/* Recent Titles Section */}
+        {recentTitles.length > 0 && (
+          <div className='w-full p-6 bg-slate-800/50 rounded-xl border border-slate-700/50 backdrop-blur-sm'>
+            <div className='flex items-center gap-3 mb-4'>
+              <Clock className='w-5 h-5 text-cyan-400'/>
+              <h2 className='text-xl font-semibold text-white'>Recent Generations</h2>
+            </div>
+            <div className='space-y-3'>
+              {recentTitles.map((item) => (
+                <div key={item.id} className='p-4 bg-slate-900/50 rounded-lg border border-slate-700/30 hover:border-cyan-500/50 transition-colors cursor-pointer'
+                  onClick={() => {
+                    setContent(item.titles)
+                    setInput(item.keyword)
+                    setSelectedCategory(item.category)
+                  }}>
+                  <div className='flex items-start justify-between gap-3'>
+                    <div className='flex-1'>
+                      <div className='flex items-center gap-2 mb-1'>
+                        <span className='text-sm font-medium text-white'>{item.keyword}</span>
+                        <span className='text-xs px-2 py-0.5 rounded-full bg-cyan-600/20 text-cyan-300 border border-cyan-500/30'>{item.category}</span>
+                      </div>
+                      <p className='text-xs text-slate-400'>{new Date(item.timestamp).toLocaleDateString()} at {new Date(item.timestamp).toLocaleTimeString()}</p>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        navigator.clipboard.writeText(item.titles)
+                        toast.success('Copied to clipboard!')
+                      }}
+                      className='p-1.5 rounded-lg hover:bg-slate-700/50 transition-colors'
+                    >
+                      <Copy className='w-4 h-4 text-slate-400 hover:text-cyan-400' />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         </div>
   )
 }
