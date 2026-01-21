@@ -5,13 +5,78 @@ import {v2 as cloudinary} from 'cloudinary';
 import axios from "axios";
 import FormData from "form-data";
 import fs from "fs";
+import OpenAI from 'openai';
 
 const cohere = new CohereClient({
     token: process.env.COHERE_API_KEY,
 });
 
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
 // Log API key status on startup
 console.log('🔑 Cohere API Key loaded:', process.env.COHERE_API_KEY ? `${process.env.COHERE_API_KEY.substring(0, 10)}...` : 'MISSING');
+console.log('🔑 OpenAI API Key loaded:', process.env.OPENAI_API_KEY ? `${process.env.OPENAI_API_KEY.substring(0, 10)}...` : 'MISSING');
+
+// Comprehensive NSFW and inappropriate keyword blocklist
+const BLOCKED_KEYWORDS = [
+    // Explicit sexual terms
+    'nude', 'naked', 'nsfw', 'porn', 'sex', 'sexual', 'xxx', 'erotic', 'adult',
+    'bikini', 'underwear', 'lingerie', 'topless', 'breast', 'boob', 'nipple',
+    'penis', 'vagina', 'genital', 'dick', 'cock', 'pussy', 'ass', 'butt',
+    'seductive', 'sexy', 'hot', 'aroused', 'intimate', 'provocative',
+    'cleavage', 'revealing', 'exposed', 'sensual', 'passionate',
+    // Violence
+    'blood', 'gore', 'violent', 'kill', 'murder', 'dead', 'death', 'torture',
+    'gun', 'weapon', 'knife', 'shoot', 'stab', 'attack', 'brutal',
+    // Hate speech
+    'racist', 'nazi', 'hate', 'supremacist', 'terrorist',
+    // Minors (combined with suggestive content)
+    'child', 'kid', 'teen', 'young', 'minor', 'loli', 'shota', 'underage',
+    // Other inappropriate
+    'drug', 'cocaine', 'heroin', 'meth', 'weed', 'marijuana'
+];
+
+// Check if prompt contains blocked keywords
+const containsBlockedKeywords = (text) => {
+    const lowerText = text.toLowerCase();
+    return BLOCKED_KEYWORDS.some(keyword => lowerText.includes(keyword));
+};
+
+// OpenAI Moderation API check (FREE)
+const checkContentModeration = async (text) => {
+    try {
+        const moderation = await openai.moderations.create({
+            model: "omni-moderation-latest", // Recommended model
+            input: text,
+        });
+        
+        const result = moderation.results[0];
+        const flagged = result.flagged;
+        const categories = result.categories;
+        
+        // Check if any harmful category is flagged
+        const flaggedCategories = Object.keys(categories).filter(key => categories[key]);
+        
+        return {
+            flagged,
+            categories: flaggedCategories,
+            scores: result.category_scores
+        };
+    } catch (error) {
+        console.error('⚠️ OpenAI Moderation Error:', error.message);
+        
+        // If rate limit (429), skip OpenAI check and rely on keyword blocklist only
+        if (error.status === 429) {
+            console.log('⚠️ OpenAI rate limit reached, skipping AI moderation (keyword check already passed)');
+            return { flagged: false, categories: [], scores: {} };
+        }
+        
+        // For other errors, be cautious and flag it
+        return { flagged: true, categories: ['moderation_error'], scores: {} };
+    }
+};
 
 // Helper function for retry logic with exponential backoff
 const retryWithBackoff = async (fn, maxRetries = 5, baseDelay = 3000) => {
@@ -142,7 +207,42 @@ export const generateImage = async (req, res) => {
         if(plan !== 'premium'){
             return res.json({success: false, message: "This feature is only available for premium subscriptions."})
         }
-        // AI Logic here 
+
+        // STEP 1: Check blocked keywords first (instant, free)
+        if (containsBlockedKeywords(prompt)) {
+            return res.status(400).json({
+                success: false,
+                message: "Your prompt contains inappropriate content. Please try a different description."
+            });
+        }
+
+        // STEP 2: OpenAI Moderation check (free API)
+        const moderationResult = await checkContentModeration(prompt);
+        
+        if (moderationResult.flagged) {
+            
+            // Log flagged attempt to database for tracking
+            await sql`
+                INSERT INTO creations (user_id, prompt, content, type, publish, is_flagged, moderation_status, moderation_categories)
+                VALUES (
+                    ${userId},
+                    ${prompt},
+                    '',
+                    'image',
+                    false,
+                    true,
+                    'rejected',
+                    ${JSON.stringify(moderationResult.categories)}
+                )
+            `;
+            
+            return res.status(400).json({
+                success: false,
+                message: "Your prompt violates our content policy. Please ensure your request is appropriate and respectful."
+            });
+        }
+
+        // STEP 3: Proceed with image generation if passed moderation
         const formData = new FormData();
         formData.append('prompt', prompt);
 
@@ -162,13 +262,27 @@ export const generateImage = async (req, res) => {
         const uploadResult = await cloudinary.uploader.upload(base64Image);
         const secure_url = uploadResult.secure_url;
 
-        await sql` INSERT INTO creations (user_id, prompt, content, type, publish)
-        VALUES (${userId}, ${prompt}, ${secure_url}, 'image', ${publish ?? false}) `;
+        // STEP 4: Save to database with moderation info
+        // If prompt passed moderation, allow publish only if user requested it
+        // Otherwise, keep it private
+        await sql`
+            INSERT INTO creations (user_id, prompt, content, type, publish, is_flagged, moderation_status, moderation_categories)
+            VALUES (
+                ${userId},
+                ${prompt},
+                ${secure_url},
+                'image',
+                ${publish ?? false},
+                false,
+                'approved',
+                ${JSON.stringify([])}
+            )
+        `;
 
         res.json({success: true, content: secure_url})
 
 } catch(error) {
-    console.error('Generate Image Error:', error);
+    console.error('Generate Image Error:', error.message);
     res.status(500).json({success: false, message: error.message || 'Failed to generate image'})
     }
 }
