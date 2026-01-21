@@ -53,11 +53,34 @@ const GenerateImages = () => {
 
           if(data.success) {
             setContent(data.content)
+            toast.success('Image generated successfully!')
           } else{
             toast.error(data.message)
           }
         } catch (error) {
-          toast.error(error.message)
+          console.error('Image generation error:', error);
+          console.log('Error response:', error.response);
+          console.log('Error response data:', error.response?.data);
+          
+          // Handle different error status codes with appropriate messages
+          const status = error.response?.status;
+          const backendMessage = error.response?.data?.message;
+          
+          if (status === 400 || status === 422) {
+            // Content moderation or validation errors - prioritize backend message
+            if (backendMessage) {
+              toast.error(`⛔ ${backendMessage}`);
+            } else {
+              toast.error('⛔ Request denied due to inappropriate content. Please modify your prompt.');
+            }
+          } else if (status === 429) {
+            toast.error('⏳ AI service is busy. Please wait a few minutes and try again.');
+          } else if (status === 403) {
+            toast.error('🔒 This feature requires a premium subscription.');
+          } else {
+            // Generic error fallback
+            toast.error(backendMessage || 'Failed to generate image. Please try again.');
+          }
         }
         setLoading(false)
       }
